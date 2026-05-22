@@ -1,0 +1,44 @@
+[
+  {
+    "category": "project",
+    "title": "Brain Tumor Segmentation",
+    "keywords": ["brain tumor", "mri", "segmentation", "u-net", "medical ai", "monai", "pytorch"],
+    "response": "My Brain Tumor Segmentation project uses an advanced U-Net architecture built with PyTorch and MONAI to segment low-contrast MRI scans. I achieved an 8.5% improvement in Dice Score over baseline models. You can view the full architecture and results in the Projects section."
+  },
+  {
+    "category": "project",
+    "title": "DRDO Radar Anomaly Detection",
+    "keywords": ["drdo", "radar", "anomaly", "detection", "clutter", "defense", "tracking"],
+    "response": "At DRDO, I developed an anomaly detection system for radar tracking. The pipeline filters out complex environmental clutter to identify true signals, using custom DSP and deep learning models. It's a highly robust defense-grade system."
+  },
+  {
+    "category": "project",
+    "title": "Telugu LLM @ IIIT Hyderabad",
+    "keywords": ["telugu", "llm", "nlp", "iiit", "hyderabad", "language model", "transformers"],
+    "response": "During my research at IIIT Hyderabad, I contributed to building a Telugu Language Model. This involved massive dataset curation, custom tokenization, and pre-training transformer architectures to handle the morphological richness of the Telugu language."
+  },
+  {
+    "category": "skill",
+    "title": "Machine Learning Frameworks",
+    "keywords": ["pytorch", "tensorflow", "keras", "monai", "jax", "scikit-learn"],
+    "response": "I specialize in PyTorch for deep learning research, but I'm also highly proficient in TensorFlow and JAX. I frequently use MONAI for medical imaging tasks and Scikit-learn for traditional ML baselines."
+  },
+  {
+    "category": "skill",
+    "title": "Frontend & Fullstack",
+    "keywords": ["react", "next.js", "nextjs", "tailwind", "typescript", "firebase", "framer motion"],
+    "response": "I build my user interfaces and dashboards using Next.js 16 (App Router), TypeScript, and Tailwind CSS. I use Framer Motion for cinematic animations and Firebase for real-time data and authentication."
+  },
+  {
+    "category": "general",
+    "title": "Contact & Hiring",
+    "keywords": ["contact", "hire", "email", "resume", "cv", "linkedin", "github"],
+    "response": "You can reach me via email at nvishnu1014@gmail.com. You can also find my resume, GitHub, and LinkedIn links in the header of this portfolio."
+  },
+  {
+    "category": "general",
+    "title": "About Me",
+    "keywords": ["who are you", "about", "background", "experience", "what do you do"],
+    "response": "I am an AI Researcher and Engineer. I build intelligent systems, specializing in Medical AI, Computer Vision, and NLP. My focus is on moving deep learning from experimental notebooks into robust, production-ready engineering environments."
+  }
+]
