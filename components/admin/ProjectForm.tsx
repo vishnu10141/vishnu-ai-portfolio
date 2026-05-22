@@ -3,13 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ProjectFormData, projectSchema, ProjectStatus, ResearchType } from '@/lib/validations';
+import { ProjectFormData, projectSchema } from '@/lib/validations';
 import { TagInput } from './TagInput';
 import { Uploader } from './Uploader';
 import { useProjects } from '@/hooks/useProjects';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Project } from '@/lib/types';
+import { Project, ProjectStatus, ResearchType } from '@/lib/types';
 import Image from 'next/image';
 import { X, Save, Eye, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -286,7 +286,7 @@ export function ProjectForm({ initialData, isEdit = false }: ProjectFormProps) {
                 control={form.control}
                 name="librariesUsed"
                 render={({ field }) => (
-                  <TagInput tags={field.value} onChange={field.onChange} placeholder="e.g. Transformers, OpenCV" />
+                  <TagInput tags={field.value || []} onChange={field.onChange} placeholder="e.g. Transformers, OpenCV" />
                 )}
               />
             </div>

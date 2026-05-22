@@ -3,7 +3,8 @@
 import { useState, useCallback } from 'react';
 import { collection, doc, getDocs, getDoc, setDoc, deleteDoc, query, where, orderBy, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
-import { Project, ProjectFormData } from '@/lib/types';
+import { Project } from '@/lib/types';
+import { ProjectFormData } from '@/lib/validations';
 
 const PROJECTS_COLLECTION = 'projects';
 
