@@ -1,0 +1,16 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'nvishnu1014@gmail.com';
+    }
+
+    match /projects/{projectId}/{allPaths=**} {
+      // Anyone can view the public assets
+      allow read: if true;
+      
+      // Only admin can upload and delete
+      allow write: if isAdmin();
+    }
+  }
+}
