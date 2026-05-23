@@ -21,17 +21,8 @@ const fadeUp = (delay: number) => ({
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#020817]">
-      {/* Subtle gradient mesh background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/[0.03] rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-violet-500/[0.03] rounded-full blur-[120px]" />
-      </div>
-
-      <div className="relative z-10 container-width py-32 lg:py-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-
-          {/* Left: Text Content */}
+    <div className="h-full flex flex-col justify-center">
+      <div className="flex flex-col gap-10">
           <div className="space-y-7 text-center lg:text-left">
             <motion.div {...fadeUp(0)}>
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.15em] uppercase text-blue-400 bg-blue-500/[0.08] border border-blue-500/[0.12]">
@@ -101,44 +92,8 @@ export default function HeroSection() {
                 </a>
               </motion.div>
             </motion.div>
-          </div>
-
-          {/* Right: Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="flex justify-center lg:justify-end"
-          >
-            <div className="relative w-[280px] h-[340px] sm:w-[320px] sm:h-[380px] lg:w-[360px] lg:h-[430px]">
-              {/* Subtle ambient box glow */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-blue-600/10 to-violet-600/10 rounded-3xl blur-2xl pointer-events-none" />
-              
-              {/* Clean Image container */}
-              <div className="relative w-full h-full rounded-[24px] overflow-hidden bg-white/[0.02]">
-                <Image
-                  src="/images/profile.jpg"
-                  alt="Nimmakayala Vishnu"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
-          </motion.div>
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="hidden lg:flex flex-col items-center gap-2 absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <span className="text-[11px] text-slate-600 tracking-widest uppercase">Scroll to explore</span>
-          <ChevronDown className="w-4 h-4 text-slate-600 animate-bounce" style={{ animationDuration: '2s' }} />
-        </motion.div>
       </div>
-    </section>
+    </div>
   );
 }

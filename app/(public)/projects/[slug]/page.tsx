@@ -11,6 +11,8 @@ import { db } from '@/lib/firebase/client';
 import { Project } from '@/lib/types';
 import { MarkdownRenderer } from '@/components/shared/MarkdownRenderer';
 import Image from 'next/image';
+import BrainTumorProject from '@/components/projects/BrainTumorProject';
+import RadarProject from '@/components/projects/RadarProject';
 
 async function getProject(slug: string): Promise<Project | null> {
   try {
@@ -53,6 +55,15 @@ export default async function ProjectDetailPage({
 
   if (!project) {
     notFound();
+  }
+
+  // Use bespoke layouts for specific featured projects
+  if (slug === 'brain-tumor-segmentation') {
+    return <BrainTumorProject project={project} />;
+  }
+  
+  if (slug === 'radar-anomaly-detection') {
+    return <RadarProject project={project} />;
   }
 
   return (

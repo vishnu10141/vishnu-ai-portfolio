@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/home/HeroSection';
 import EngineeringFocus from '@/components/home/EngineeringFocus';
-import SkillsSection from '@/components/home/SkillsSection';
-import FeaturedProjects from '@/components/home/FeaturedProjects';
 import ExperienceTimeline from '@/components/home/ExperienceTimeline';
-import ContactSection from '@/components/home/ContactSection';
+import ContactFooter from '@/components/home/ContactFooter';
 
 export const metadata: Metadata = {
   title: 'Home | AI Engineer Portfolio',
@@ -14,19 +12,31 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <>
-      <HeroSection />
-      <EngineeringFocus />
-      <FeaturedProjects />
-      
-      {/* Container for Experience & Skills side-by-side on desktop */}
-      <div className="container-width py-28 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 lg:gap-24 relative bg-[#020817]">
-        {/* Subtle top divider */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-        <ExperienceTimeline />
-        <SkillsSection />
+    <div className="bg-[#020817] min-h-[calc(100vh-80px)]">
+      {/* 2x2 Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1800px] mx-auto border-l border-r border-white/[0.05]">
+        
+        {/* Top Left: Hero */}
+        <div className="p-8 lg:p-16 border-b border-white/[0.05] lg:border-r">
+          <HeroSection />
+        </div>
+
+        {/* Top Right: Focus */}
+        <div className="p-8 lg:p-16 border-b border-white/[0.05]">
+          <EngineeringFocus />
+        </div>
+
+        {/* Bottom Left: Experience */}
+        <div className="p-8 lg:p-16 border-b lg:border-b-0 border-white/[0.05] lg:border-r">
+          <ExperienceTimeline />
+        </div>
+
+        {/* Bottom Right: Footer/Contact */}
+        <div className="p-8 lg:p-16">
+          <ContactFooter />
+        </div>
+        
       </div>
-      <ContactSection />
-    </>
+    </div>
   );
 }

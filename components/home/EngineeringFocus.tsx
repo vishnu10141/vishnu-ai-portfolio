@@ -33,15 +33,11 @@ const FOCUS_AREAS = [
 
 export default function EngineeringFocus() {
   return (
-    <section className="py-20 relative bg-[#020817]">
-      {/* Top Border Divider */}
-      <div className="absolute top-0 left-0 w-full h-px bg-white/[0.05]" />
+    <div className="h-full flex flex-col justify-center">
+      <h2 className="text-[18px] sm:text-xl font-bold text-white mb-10 tracking-tight">What I Care About</h2>
       
-      <div className="container-width">
-        <h2 className="text-2xl font-bold text-white mb-12 tracking-tight">Engineering Focus</h2>
-        
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {FOCUS_AREAS.map((area, idx) => {
+      <div className="flex flex-col gap-8">
+        {FOCUS_AREAS.map((area, idx) => {
             const Icon = area.icon;
             return (
               <motion.div
@@ -65,10 +61,6 @@ export default function EngineeringFocus() {
             );
           })}
         </div>
-      </div>
-      
-      {/* Bottom Border Divider */}
-      <div className="absolute bottom-0 left-0 w-full h-px bg-white/[0.05]" />
-    </section>
+    </div>
   );
 }
