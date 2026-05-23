@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/home/HeroSection';
+import StatsAndTech from '@/components/home/StatsAndTech';
 import EngineeringFocus from '@/components/home/EngineeringFocus';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
 import ExperienceTimeline from '@/components/home/ExperienceTimeline';
@@ -16,6 +17,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <StatsAndTech />
       <EngineeringFocus />
       <FeaturedProjects />
       <ExperienceTimeline />
