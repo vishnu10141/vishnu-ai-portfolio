@@ -9,43 +9,31 @@ const focusAreas = [
     title: 'AI & ML Solutions',
     description: 'Building intelligent models that learn, adapt, and deliver measurable results.',
     icon: Box,
-    linkText: 'Explore AI Work',
-    href: '#projects',
   },
   {
     title: 'Full Stack Development',
     description: 'End-to-end web applications using modern technologies and best practices.',
     icon: Code2,
-    linkText: 'Explore Projects',
-    href: '#projects',
   },
   {
     title: 'Data Science',
     description: 'Turning raw data into insightful visualizations and actionable knowledge.',
     icon: LineChart,
-    linkText: 'Explore Analytics',
-    href: '#projects',
   },
   {
     title: 'Cloud & DevOps',
     description: 'Deploying scalable solutions with CI/CD, Docker, and cloud platforms.',
     icon: Cloud,
-    linkText: 'Explore DevOps',
-    href: '#skills',
   },
   {
     title: 'Research & Innovation',
     description: 'Exploring new ideas and building solutions for real-world challenges.',
     icon: Lightbulb,
-    linkText: 'Explore Research',
-    href: '#experience',
   },
   {
     title: 'Problem Solving',
     description: 'Lover of challenges and building optimized solutions that scale.',
     icon: Puzzle,
-    linkText: 'Explore Solutions',
-    href: '#experience',
   },
 ];
 
@@ -63,7 +51,7 @@ export default function EngineeringFocus() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-[#020611] border border-white/5 rounded-2xl p-6 hover:border-green-500/30 transition-colors group flex flex-col h-full"
+                className="bg-[#020611] border border-white/5 rounded-2xl p-6 hover:border-green-500/30 transition-colors group flex flex-col items-center text-center h-full"
               >
                 <div className="w-12 h-12 rounded-xl bg-green-500/5 flex items-center justify-center shrink-0 mb-5 group-hover:bg-green-500/10 transition-colors">
                   <Icon className="w-6 h-6 text-green-500" />
@@ -74,14 +62,6 @@ export default function EngineeringFocus() {
                 <p className="text-[13px] text-slate-400 leading-relaxed mb-6 flex-grow">
                   {area.description}
                 </p>
-
-                <Link 
-                  href={area.href}
-                  className="inline-flex items-center gap-1.5 text-[12px] font-medium text-green-500 hover:text-green-400 transition-colors mt-auto w-fit"
-                >
-                  {area.linkText}
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </Link>
               </motion.div>
             );
           })}

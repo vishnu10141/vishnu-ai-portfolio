@@ -23,10 +23,10 @@ export default function HeroSection() {
       <div className="absolute top-[20%] left-[10%] w-[400px] h-[400px] bg-green-500/10 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute top-[30%] right-[10%] w-[400px] h-[400px] bg-green-500/5 blur-[150px] rounded-full pointer-events-none" />
 
-      <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-8 items-center relative z-10">
+      <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-center gap-12 lg:gap-16 max-w-6xl mx-auto relative z-10">
         
         {/* Left: Text Content */}
-        <div className="space-y-6 text-left flex flex-col justify-center">
+        <div className="space-y-6 text-center lg:text-center flex flex-col items-center justify-center lg:w-1/2">
           <motion.div {...fadeUp(0)}>
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-green-500/20 bg-green-500/5 text-[11px] font-bold tracking-[0.1em] uppercase text-green-400">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
@@ -47,14 +47,14 @@ export default function HeroSection() {
 
           <motion.h2 
             {...fadeUp(0.2)}
-            className="text-xl sm:text-2xl text-slate-300 font-medium leading-snug max-w-xl"
+            className="text-xl sm:text-2xl text-slate-300 font-medium leading-snug max-w-2xl text-center"
           >
             Building <span className="text-green-400">intelligent systems</span> that solve real-world problems.
           </motion.h2>
 
           <motion.p
             {...fadeUp(0.3)}
-            className="text-slate-400 text-[15px] sm:text-[16px] max-w-[500px] leading-relaxed flex flex-col gap-3"
+            className="text-slate-400 text-[15px] sm:text-[16px] max-w-[600px] leading-relaxed flex flex-col gap-3 text-center"
           >
             <span>
               AI Engineer specializing in Machine Learning, Deep Learning, NLP, Computer Vision, and Full Stack Development.
@@ -63,29 +63,6 @@ export default function HeroSection() {
               I transform ideas into scalable, efficient, and impactful solutions.
             </span>
           </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            {...fadeUp(0.4)}
-            className="flex flex-wrap items-center gap-4 pt-4"
-          >
-            <Link
-              href="#projects"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-green-500 hover:bg-green-400 text-[#020611] text-[15px] font-bold transition-colors shadow-[0_0_20px_rgba(74,222,128,0.2)]"
-            >
-              View My Work
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-medium text-white border border-white/[0.15] hover:bg-white/[0.03] transition-colors"
-            >
-              Download Resume
-              <Download className="w-4 h-4" />
-            </a>
-          </motion.div>
         </div>
 
         {/* Right: Sci-Fi Profile Image */}
@@ -93,7 +70,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="flex flex-col items-center justify-center relative pt-10 lg:pt-0"
+          className="flex flex-col items-center justify-center relative pt-10 lg:pt-0 lg:w-1/2"
         >
           {/* Main Image Container */}
           <div className="relative w-[320px] h-[320px] md:w-[420px] md:h-[420px] flex items-center justify-center">
