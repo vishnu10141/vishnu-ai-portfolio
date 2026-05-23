@@ -4,34 +4,27 @@ import { GithubIcon, LinkedinIcon, XTwitterIcon } from '@/components/ui/SocialIc
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-white/[0.04] bg-[#020817]">
-      <div className="container-width py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[13px] text-slate-500">
+    <footer className="w-full">
+      <div className="flex flex-col md:flex-row justify-between items-center py-10 border-t border-white/10 text-[13px] text-slate-500">
         {/* Left: Socials */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-6 mb-4 md:mb-0">
           <a href="https://github.com/nvishnu1014" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2" aria-label="GitHub">
             <GithubIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">GitHub</span>
+            <span>GitHub</span>
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2" aria-label="LinkedIn">
+          <a href="https://linkedin.com/in/nvishnu1014" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2" aria-label="LinkedIn">
             <LinkedinIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">LinkedIn</span>
+            <span>LinkedIn</span>
           </a>
-          <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2" aria-label="X/Twitter">
+          <a href="https://x.com/nvishnu1014" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2" aria-label="X/Twitter">
             <XTwitterIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">X/Twitter</span>
+            <span>X (Twitter)</span>
           </a>
         </div>
 
-        {/* Center: Copyright */}
-        <div className="hidden md:block text-slate-600">
-          &copy; {new Date().getFullYear()} Nimmakayala Vishnu
-        </div>
-
-        {/* Right: Email */}
+        {/* Right: Copyright */}
         <div>
-          <a href="mailto:hello@example.com" className="hover:text-white transition-colors">
-            hello@example.com
-          </a>
+          &copy; 2026 Nimmakayala Vishnu. All rights reserved.
         </div>
       </div>
     </footer>

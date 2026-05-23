@@ -57,15 +57,18 @@ const dotColor = {
 
 export default function ExperienceTimeline() {
   return (
-    <div className="w-full">
-      <h2 className="text-[18px] sm:text-xl font-bold text-white mb-10 tracking-tight">Experience</h2>
+    <section className="w-full">
+      <div className="mb-16">
+        <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-blue-500 block mb-2">Experience</span>
+        <h2 className="text-3xl font-bold text-white tracking-tight">Professional Journey</h2>
+      </div>
 
       {/* Timeline */}
-      <div className="relative pl-6 sm:pl-8">
+      <div className="relative pl-4 sm:pl-8">
         {/* Vertical line */}
-        <div className="absolute left-[7px] sm:left-[9px] top-2 bottom-2 w-px bg-white/[0.08]" />
+        <div className="absolute left-[7px] sm:left-[15px] top-2 bottom-2 w-px bg-white/[0.08]" />
 
-        <div className="space-y-12">
+        <div className="space-y-16">
           {timeline.map((item, i) => (
             <motion.div
               key={i}
@@ -76,33 +79,30 @@ export default function ExperienceTimeline() {
               className="relative group"
             >
               {/* Timeline dot */}
-              <div className="absolute -left-[29px] sm:-left-[37px] top-1.5 w-2 h-2 rounded-full bg-slate-400 ring-4 ring-[#020817] z-10" />
+              <div className="absolute -left-[29px] sm:-left-[37px] top-1.5 w-2 h-2 rounded-full bg-blue-500 ring-4 ring-[#020817] z-10" />
 
-              <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-8 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-8 lg:gap-20 items-start">
                 {/* Meta Column */}
                 <div className="flex flex-col">
                   <span className="text-[12px] text-slate-500 font-medium mb-1.5">{item.period}</span>
-                  <h3 className="text-[14px] font-bold text-slate-200 tracking-tight leading-snug">{item.role}</h3>
+                  <h3 className="text-[15px] font-bold text-white tracking-tight leading-snug">{item.role}</h3>
                   <span className="text-[13px] font-medium text-blue-400 mt-1">{item.org}</span>
                 </div>
 
                 {/* Description Column */}
-                <div className="text-[13px] text-slate-400 leading-relaxed pt-0 md:pt-1 space-y-1">
+                <ul className="text-[13px] text-slate-400 leading-relaxed pt-0 md:pt-1 space-y-2">
                   {item.highlights.map((highlight, idx) => (
-                    <p key={idx}>{highlight}</p>
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-slate-600 mt-0.5">•</span>
+                      <span>{highlight}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
-      
-      <div className="mt-10">
-        <a href="/resume.pdf" target="_blank" className="text-[13px] font-semibold text-blue-400 hover:text-white transition-colors flex items-center gap-1">
-          View Full Experience <ChevronRight className="w-4 h-4" />
-        </a>
-      </div>
-    </div>
+    </section>
   );
 }

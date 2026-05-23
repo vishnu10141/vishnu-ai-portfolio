@@ -50,7 +50,7 @@ export default function Navbar() {
             : 'bg-transparent py-4'
         )}
       >
-        <nav className="container-width flex items-center justify-between">
+        <nav className="max-w-7xl mx-auto px-6 lg:px-10 w-full flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1 group">
             <span
@@ -107,8 +107,6 @@ export default function Navbar() {
                 <Icon className="w-[15px] h-[15px]" />
               </a>
             ))}
-
-            <ThemeSwitcher />
 
             <Link
               href="/login"
