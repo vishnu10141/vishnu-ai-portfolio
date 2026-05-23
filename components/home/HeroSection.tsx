@@ -35,6 +35,7 @@ export default function HeroSection() {
           <div className="space-y-7 text-center lg:text-left">
             <motion.div {...fadeUp(0)}>
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.15em] uppercase text-blue-400 bg-blue-500/[0.08] border border-blue-500/[0.12]">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                 AI Engineer
               </span>
             </motion.div>
@@ -57,18 +58,20 @@ export default function HeroSection() {
               I build practical AI systems focused on machine learning, NLP, computer vision, anomaly detection, and deployment-ready applications. My work combines AI engineering, scalable development, and real-world problem solving.
             </motion.p>
 
-            {/* Skill pills */}
+            {/* Skill tags */}
             <motion.div
               {...fadeUp(0.3)}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3"
             >
-              {skillPills.map((label) => (
-                <span
-                  key={label}
-                  className="px-3 py-1 rounded-md text-[11px] font-medium border border-white/[0.04] bg-white/[0.02] text-slate-300 transition-colors hover:bg-white/[0.04]"
-                >
-                  {label}
-                </span>
+              {skillPills.map((label, index) => (
+                <div key={label} className="flex items-center gap-3">
+                  <span className="text-[13px] font-medium text-slate-400">
+                    {label}
+                  </span>
+                  {index < skillPills.length - 1 && (
+                    <span className="w-1 h-1 rounded-full bg-slate-600" />
+                  )}
+                </div>
               ))}
             </motion.div>
 
@@ -107,28 +110,21 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="flex justify-center lg:justify-end"
           >
-            <motion.div
-              whileHover={{ scale: 1.01, y: -2 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="relative w-[280px] h-[340px] sm:w-[320px] sm:h-[380px] lg:w-[360px] lg:h-[430px]"
-            >
-              {/* Ambient premium lighting behind image */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-500/10 blur-[100px] rounded-full pointer-events-none" />
+            <div className="relative w-[280px] h-[340px] sm:w-[320px] sm:h-[380px] lg:w-[360px] lg:h-[430px]">
+              {/* Subtle ambient box glow */}
+              <div className="absolute -inset-4 bg-gradient-to-br from-blue-600/10 to-violet-600/10 rounded-3xl blur-2xl pointer-events-none" />
               
-              {/* Subtle edge glow ONLY */}
-              <div className="absolute -inset-0.5 rounded-[26px] bg-gradient-to-br from-white/[0.12] to-transparent blur-md" />
-              
-              {/* Image container */}
-              <div className="relative w-full h-full rounded-3xl overflow-hidden border border-white/[0.06] shadow-xl shadow-black/40 bg-[#081120]">
+              {/* Clean Image container */}
+              <div className="relative w-full h-full rounded-[24px] overflow-hidden bg-white/[0.02]">
                 <Image
                   src="/images/profile.jpg"
                   alt="Nimmakayala Vishnu"
                   fill
-                  className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+                  className="object-cover"
                   priority
                 />
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
 

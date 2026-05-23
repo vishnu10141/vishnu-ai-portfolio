@@ -57,82 +57,52 @@ const dotColor = {
 
 export default function ExperienceTimeline() {
   return (
-    <section id="experience" className="relative py-28 bg-[#020817]">
-      {/* Subtle top divider */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+    <div className="w-full">
+      <h2 className="text-[18px] sm:text-xl font-bold text-white mb-10 tracking-tight">Experience</h2>
 
-      <div className="container-width max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-14 space-y-4">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-block text-[11px] font-semibold tracking-[0.2em] uppercase text-cyan-400"
-          >
-            JOURNEY
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-bold tracking-tight"
-            style={{ fontFamily: 'var(--font-space-grotesk)' }}
-          >
-            <span className="text-white">Experience</span>
-          </motion.h2>
-        </div>
+      {/* Timeline */}
+      <div className="relative pl-6 sm:pl-8">
+        {/* Vertical line */}
+        <div className="absolute left-[7px] sm:left-[9px] top-2 bottom-2 w-px bg-white/[0.08]" />
 
-        {/* Timeline */}
-        <div className="relative pl-8 sm:pl-10">
-          {/* Vertical line */}
-          <div className="absolute left-[11px] sm:left-[15px] top-2 bottom-2 w-px bg-gradient-to-b from-blue-500/30 via-white/[0.06] to-transparent" />
+        <div className="space-y-12">
+          {timeline.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-20px' }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="relative group"
+            >
+              {/* Timeline dot */}
+              <div className="absolute -left-[29px] sm:-left-[37px] top-1.5 w-2 h-2 rounded-full bg-slate-400 ring-4 ring-[#020817] z-10" />
 
-          <div className="space-y-6">
-            {timeline.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative group"
-              >
-                {/* Timeline dot */}
-                <div className={`absolute -left-8 sm:-left-10 top-6 w-2.5 h-2.5 rounded-full ${dotColor[item.type]} ring-4 ring-[#020817] z-10`} />
-
-                <div className="rounded-2xl p-4 sm:p-5 bg-[#081120]/70 border border-white/[0.04] hover:border-white/[0.08] transition-all duration-300">
-                  {/* Date */}
-                  <div className="flex items-center gap-2 text-[12px] text-slate-500 font-medium tracking-wide mb-2">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>{item.period}</span>
-                    {item.location && (
-                      <>
-                        <span className="text-white/10">·</span>
-                        <MapPin className="w-3 h-3" />
-                        <span>{item.location}</span>
-                      </>
-                    )}
-                  </div>
-
-                  <h3 className="text-[15px] font-bold text-white mb-0.5 tracking-tight">{item.role}</h3>
-                  <p className="text-[13px] font-medium text-blue-400/80 mb-3">{item.org}</p>
-
-                  <ul className="space-y-1">
-                    {item.highlights.map((highlight, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-[13px] text-slate-400 leading-relaxed">
-                        <ChevronRight className="w-3.5 h-3.5 mt-0.5 shrink-0 text-blue-500/50" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
+              <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-8 items-start">
+                {/* Meta Column */}
+                <div className="flex flex-col">
+                  <span className="text-[12px] text-slate-500 font-medium mb-1.5">{item.period}</span>
+                  <h3 className="text-[14px] font-bold text-slate-200 tracking-tight leading-snug">{item.role}</h3>
+                  <span className="text-[13px] font-medium text-blue-400 mt-1">{item.org}</span>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+
+                {/* Description Column */}
+                <div className="text-[13px] text-slate-400 leading-relaxed pt-0 md:pt-1 space-y-1">
+                  {item.highlights.map((highlight, idx) => (
+                    <p key={idx}>{highlight}</p>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </section>
+      
+      <div className="mt-10">
+        <a href="/resume.pdf" target="_blank" className="text-[13px] font-semibold text-blue-400 hover:text-white transition-colors flex items-center gap-1">
+          View Full Experience <ChevronRight className="w-4 h-4" />
+        </a>
+      </div>
+    </div>
   );
 }

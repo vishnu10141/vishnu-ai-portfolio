@@ -4,7 +4,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CommandPalette } from "@/components/shared/CommandPalette";
 import { FloatingWidgets } from "@/components/shared/FloatingWidgets";
-import MouseGlow from "@/components/shared/MouseGlow";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -70,7 +69,6 @@ export default function RootLayout({
           <AuthProvider>
             <CommandPalette />
             <FloatingWidgets />
-            <MouseGlow />
             {children}
             <Toaster position="bottom-right" toastOptions={{ className: 'bg-[#0a1020] text-slate-200 border-white/10 shadow-2xl shadow-black/50 backdrop-blur-xl' }} />
           </AuthProvider>

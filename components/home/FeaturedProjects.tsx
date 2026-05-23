@@ -76,74 +76,36 @@ export default function FeaturedProjects() {
 
       <div className="container-width">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-          <div className="space-y-3">
-            <motion.span
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-block text-[11px] font-semibold tracking-[0.2em] uppercase text-cyan-400"
-            >
-              FEATURED WORK
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl font-bold tracking-tight"
-              style={{ fontFamily: 'var(--font-space-grotesk)' }}
-            >
-              Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">Projects</span>
-            </motion.h2>
-          </div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+        <div className="flex items-end justify-between mb-12">
+          <h2
+            className="text-2xl sm:text-3xl font-bold text-white tracking-tight"
+            style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 hover:text-cyan-400 transition-colors group"
-            >
-              View all projects
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Link>
-          </motion.div>
+            Featured Projects
+          </h2>
+          <Link
+            href="/projects"
+            className="text-[13px] font-medium text-blue-400 hover:text-white transition-colors flex items-center gap-1.5"
+          >
+            View all projects
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        {/* Project grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Project stack */}
+        <div className="flex flex-col gap-24 lg:gap-32">
           {PROJECTS.map((project, i) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <ProjectCard project={project} />
+              <ProjectCard project={project} index={i} />
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="text-center mt-10"
-        >
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-slate-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200"
-          >
-            Browse All Projects
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );
