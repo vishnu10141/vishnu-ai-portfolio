@@ -33,13 +33,12 @@ const FOCUS_AREAS = [
 
 export default function EngineeringFocus() {
   return (
-    <section className="w-full">
-      <div className="mb-12">
-        <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-blue-500 block mb-2">Engineering Focus</span>
-        <h2 className="text-3xl font-bold text-white tracking-tight">What I Care About</h2>
+    <section className="w-full pt-20">
+      <div className="mb-16">
+        <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-500 block mb-2">ENGINEERING FOCUS</span>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 divide-x divide-white/[0.05] border-x border-white/[0.05]">
         {FOCUS_AREAS.map((area, idx) => {
             const Icon = area.icon;
             return (
@@ -49,10 +48,10 @@ export default function EngineeringFocus() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="flex flex-col items-center text-center gap-4"
+                className="flex flex-col items-center text-center gap-5 px-6 lg:px-8 py-4 hover:bg-white/[0.02] transition-colors"
               >
-                <div className="text-blue-400">
-                  <Icon className="w-8 h-8 stroke-[1.5]" />
+                <div className="text-blue-500">
+                  <Icon className="w-8 h-8 stroke-[1.25]" />
                 </div>
                 <h3 className="text-[14px] font-bold text-slate-200 leading-snug">
                   {area.title}

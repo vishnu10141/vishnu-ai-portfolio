@@ -63,29 +63,29 @@ export default function Navbar() {
 
           {/* Center nav pill */}
           <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
-            <ul className="flex items-center gap-1 py-1.5 px-2 rounded-full bg-white/[0.04] backdrop-blur-md border border-white/[0.06]">
-              {navLinks.map((link) => (
-                <li
-                  key={link.href}
-                  className="relative"
-                  onMouseEnter={() => setHoveredPath(link.href)}
-                  onMouseLeave={() => setHoveredPath(null)}
-                >
-                  <Link
-                    href={link.href}
-                    className="relative z-10 px-4 py-1 text-[13px] font-medium text-slate-400 hover:text-white transition-colors duration-200 block"
-                  >
-                    {link.label}
-                  </Link>
-                  {hoveredPath === link.href && (
-                    <motion.div
-                      layoutId="navbar-hover"
-                      className="absolute inset-0 bg-white/[0.06] rounded-full z-0"
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </li>
-              ))}
+            <ul className="flex items-center gap-6">
+              {navLinks.map((link) => {
+                const isActive = link.href === '/';
+                return (
+                  <li key={link.href} className="relative">
+                    <Link
+                      href={link.href}
+                      className={cn(
+                        "relative z-10 py-2 text-[14px] font-medium transition-colors duration-200 block",
+                        isActive ? "text-white" : "text-slate-400 hover:text-white"
+                      )}
+                    >
+                      {link.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="active-nav"
+                          className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-500"
+                        />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -93,8 +93,8 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-2">
             {[
               { Icon: GithubIcon,   href: 'https://github.com/nvishnu1014',   label: 'GitHub'   },
-              { Icon: LinkedinIcon, href: 'https://linkedin.com', label: 'LinkedIn' },
-              { Icon: XTwitterIcon, href: 'https://x.com',        label: 'X/Twitter'},
+              { Icon: LinkedinIcon, href: 'https://linkedin.com/in/nvishnu1014', label: 'LinkedIn' },
+              { Icon: XTwitterIcon, href: 'https://x.com/nvishnu1014',        label: 'X/Twitter'},
             ].map(({ Icon, href, label }) => (
               <a
                 key={label}
@@ -102,18 +102,18 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-white hover:bg-white/[0.06] transition-all duration-200"
+                className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white transition-all duration-200"
               >
-                <Icon className="w-[15px] h-[15px]" />
+                <Icon className="w-[18px] h-[18px]" />
               </a>
             ))}
 
             <Link
               href="/login"
-              className="ml-2 flex items-center justify-center w-7 h-7 text-slate-600 hover:text-slate-300 hover:bg-white/[0.04] rounded-md transition-all duration-200"
+              className="ml-2 flex items-center justify-center w-7 h-7 text-slate-500 hover:text-white transition-all duration-200"
               aria-label="Admin Login"
             >
-              <Lock className="w-[13px] h-[13px]" />
+              <Lock className="w-[15px] h-[15px]" />
             </Link>
           </div>
 
