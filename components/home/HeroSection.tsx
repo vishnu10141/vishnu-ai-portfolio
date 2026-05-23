@@ -73,7 +73,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-[var(--color-text-secondary)] text-base lg:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light"
           >
-            I build practical AI systems focused on machine learning, NLP, computer vision, and real-world problem solving. My work combines AI engineering, scalable development, and deployment-focused solutions.
+            I build practical AI systems focused on machine learning, NLP, computer vision, anomaly detection, and deployment-focused applications. My work combines AI engineering, scalable development, and real-world problem solving across healthcare, radar systems, and language technologies.
           </motion.p>
 
           <motion.div
