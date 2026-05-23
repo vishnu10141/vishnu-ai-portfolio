@@ -3,25 +3,22 @@
 import { motion } from 'framer-motion';
 import { Code2, Brain, Rocket, Users, User } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
 const ParticleCanvas = dynamic(() => import('./ParticleCanvas'), { ssr: false });
 
-function ProfileGraphic() {
+function ProfileImage() {
   return (
-    <div className="relative w-full max-w-[400px] lg:max-w-[450px] aspect-square mx-auto flex items-center justify-center overflow-hidden rounded-3xl">
-      {/* Soft gradient base */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1628] to-[#020817] rounded-3xl border border-[rgba(255,255,255,0.02)]" />
-      
-      {/* Minimal grid lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]" />
-      
-      {/* Elegant animated mesh blob */}
-      <div className="relative w-64 h-64 flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-cyan-400/10 to-transparent rounded-full blur-2xl animate-spin-slow" />
-        <div className="absolute w-40 h-40 bg-gradient-to-bl from-violet-500/10 to-blue-500/10 rounded-full blur-xl animate-float" style={{ animationDuration: '8s' }} />
-        
-        {/* Core focal point */}
-        <div className="w-1.5 h-1.5 rounded-full bg-blue-400/50 shadow-[0_0_15px_rgba(96,165,250,0.8)]" />
+    <div className="relative w-full max-w-[280px] lg:max-w-[340px] aspect-square mx-auto rounded-full p-2 border border-[rgba(59,130,246,0.15)] bg-[rgba(59,130,246,0.02)] shadow-[0_0_30px_rgba(59,130,246,0.1)]">
+      <div className="absolute inset-0 rounded-full bg-blue-500/5 blur-2xl animate-pulse" style={{ animationDuration: '4s' }} />
+      <div className="relative w-full h-full rounded-full overflow-hidden border border-[rgba(255,255,255,0.08)]">
+        <Image
+          src="/images/profile.jpg"
+          alt="Nimmakayala Vishnu"
+          fill
+          className="object-cover"
+          priority
+        />
       </div>
     </div>
   );
@@ -110,7 +107,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2, type: 'spring' }}
           className="flex-1 w-full"
         >
-          <ProfileGraphic />
+          <ProfileImage />
         </motion.div>
       </div>
     </section>

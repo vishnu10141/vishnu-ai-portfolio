@@ -5,9 +5,9 @@ import { GithubIcon, LinkedinIcon, XTwitterIcon } from '@/components/ui/SocialIc
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#020817] py-10 md:py-16 border-t border-[rgba(255,255,255,0.05)]">
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="w-full border-t border-[rgba(255,255,255,0.05)] bg-[#020817] py-8">
+      <div className="container-width">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           
           {/* Left: Socials */}
           <div className="flex items-center gap-5 text-white/60">
