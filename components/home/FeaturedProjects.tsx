@@ -11,8 +11,14 @@ const AUTHENTIC_PROJECTS = [
     slug: 'radar-anomaly-detection',
     title: 'Radar Anomaly Detection',
     shortDescription: 'Machine learning system for signal segmentation and false-positive reduction in clutter-heavy radar environments.',
+    achievements: [
+      'Engineered a robust segmentation pipeline reducing false positives by 30%.',
+      'Deployed optimized XGBoost and SVM models for real-time inference.',
+      'Developed at DRDO under restricted defense environments.'
+    ],
     category: 'Anomaly Detection',
     technologies: ['XGBoost', 'Random Forest', 'SVM', 'NumPy'],
+    githubUrl: 'https://github.com/nvishnu1014',
     featured: true
   },
   {
@@ -20,8 +26,14 @@ const AUTHENTIC_PROJECTS = [
     slug: 'telugu-llm-pipeline',
     title: 'Telugu LLM Pipeline',
     shortDescription: 'Large-scale automated NLP data pipeline preparing 100K+ high-quality annotated Telugu datasets for model training.',
+    achievements: [
+      'Architected distributed text scraping & cleaning system for native Telugu.',
+      'Boosted annotation throughput by 200% via automated pre-labeling.',
+      'Supported research at IIIT Hyderabad applied NLP lab.'
+    ],
     category: 'NLP',
-    technologies: ['Python', 'Data Engineering', 'LLMs'],
+    technologies: ['Python', 'Data Engineering', 'LLMs', 'PyTorch'],
+    githubUrl: 'https://github.com/nvishnu1014',
     featured: true
   },
   {
@@ -29,8 +41,14 @@ const AUTHENTIC_PROJECTS = [
     slug: 'brain-tumor-segmentation',
     title: 'Brain Tumor Segmentation',
     shortDescription: 'End-to-end medical imaging system using Residual Attention U-Net on the BraTS dataset with Streamlit visualization.',
+    achievements: [
+      'Achieved 0.89 Dice score on multi-modal MRI scans.',
+      'Integrated MONAI for scalable distributed training.',
+      'Built interactive diagnostic UI used for model validation.'
+    ],
     category: 'Computer Vision',
     technologies: ['PyTorch', 'MONAI', 'U-Net', 'Streamlit'],
+    githubUrl: 'https://github.com/nvishnu1014',
     featured: true
   },
   {
@@ -38,8 +56,14 @@ const AUTHENTIC_PROJECTS = [
     slug: 'credit-card-fraud',
     title: 'Credit Card Fraud Detection',
     shortDescription: 'Fraud detection pipeline processing 284K+ transactions using ensemble learning and SMOTE for extreme class imbalance.',
+    achievements: [
+      'Handled 99.8% class imbalance via advanced SMOTE sampling.',
+      'Delivered 95% precision on fraud class with Random Forests.',
+      'Implemented full CI/CD deployment pipeline for model updates.'
+    ],
     category: 'Machine Learning',
-    technologies: ['Scikit-learn', 'SMOTE', 'XGBoost'],
+    technologies: ['Scikit-learn', 'SMOTE', 'XGBoost', 'Pandas'],
+    githubUrl: 'https://github.com/nvishnu1014',
     featured: true
   }
 ] as ProjectCardData[];

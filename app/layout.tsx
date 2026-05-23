@@ -26,25 +26,25 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "AI Research Portfolio",
-    template: "%s | AI Research Portfolio",
+    default: "AI Engineer Portfolio",
+    template: "%s | AI Engineer Portfolio",
   },
   description:
-    "Personal AI research portfolio — showcasing projects, papers, and experiments at the intersection of machine learning and real-world impact.",
-  keywords: ["AI", "Machine Learning", "Research", "Deep Learning", "Portfolio"],
-  authors: [{ name: "Researcher" }],
-  creator: "Researcher",
+    "Personal AI engineer portfolio — showcasing practical engineering projects, machine learning models, and real-world deployed systems.",
+  keywords: ["AI Engineer", "Machine Learning", "Deep Learning", "Software Engineering", "Portfolio"],
+  authors: [{ name: "NIMMAKAYALA VISHNU" }],
+  creator: "NIMMAKAYALA VISHNU",
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "AI Research Portfolio",
-    description: "Personal AI research portfolio",
-    siteName: "AI Research Portfolio",
+    title: "AI Engineer Portfolio",
+    description: "Personal AI engineer portfolio",
+    siteName: "AI Engineer Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Research Portfolio",
-    description: "Personal AI research portfolio",
+    title: "AI Engineer Portfolio",
+    description: "Personal AI engineer portfolio",
   },
   robots: {
     index: true,

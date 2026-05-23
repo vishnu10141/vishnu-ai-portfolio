@@ -5,9 +5,9 @@ import ExperienceTimeline from '@/components/home/ExperienceTimeline';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
 import AboutSection from '@/components/home/AboutSection';
 export const metadata: Metadata = {
-  title: 'Home | AI Research Portfolio',
+  title: 'Home | AI Engineer Portfolio',
   description:
-    'Personal AI research portfolio — explore machine learning projects, publications, and experiments.',
+    'Personal AI engineer portfolio — explore practical machine learning systems and deployment-ready engineering projects.',
 };
 
 export default function HomePage() {

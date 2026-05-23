@@ -3,14 +3,14 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ExternalLink, BookOpen, ArrowUpRight, ImageIcon } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/SocialIcons';
 import { cn } from '@/lib/utils';
-
 import { Project } from '@/lib/types';
-import Image from 'next/image';
 
-export interface ProjectCardData extends Project {}
+export interface ProjectCardData extends Project {
+  achievements?: string[];
+}
 
 const categoryColors: Record<string, string> = {
   'Computer Vision': 'tag-blue',
@@ -35,11 +35,11 @@ function useTilt() {
     const y = e.clientY - rect.top;
     const cx = rect.width / 2;
     const cy = rect.height / 2;
-    const rotX = ((y - cy) / cy) * -8;   // max 8deg
-    const rotY = ((x - cx) / cx) * 8;
+    const rotX = ((y - cy) / cy) * -4;   // max 4deg
+    const rotY = ((x - cx) / cx) * 4;
 
     setStyle({
-      transform: `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02,1.02,1.02)`,
+      transform: `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.01,1.01,1.01)`,
       transition: 'transform 0.1s ease',
     });
     setGlowPos({ x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
@@ -55,139 +55,111 @@ function useTilt() {
   return { ref, style, glowPos, onMouseMove, onMouseLeave };
 }
 
-/* ── Image Placeholder ── */
-function CardImagePlaceholder({ category }: { category: string }) {
-  return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-      <div className="w-14 h-14 rounded-2xl bg-[rgba(59,130,246,0.08)] border border-[rgba(59,130,246,0.15)] flex items-center justify-center">
-        <ImageIcon className="w-7 h-7 text-blue-500/50" />
-      </div>
-      <span className="text-xs text-text-muted">Project Cover</span>
-    </div>
-  );
-}
-
-/* ── Project Card ── */
 export default function ProjectCard({ project }: { project: ProjectCardData }) {
   const { ref, style, glowPos, onMouseMove, onMouseLeave } = useTilt();
   const tagClass = categoryColors[project.category] || categoryColors.default;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5 }}
+    <div
+      ref={ref}
+      style={style}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className="relative group rounded-xl border border-[rgba(59,130,246,0.15)] overflow-hidden bg-[rgba(13,31,60,0.4)] hover:bg-[rgba(13,31,60,0.7)] backdrop-blur-sm transition-colors duration-300 h-full flex flex-col"
+      role="article"
     >
-      <div
-        ref={ref}
-        style={style}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-        className="relative group rounded-2xl border border-[rgba(59,130,246,0.1)] overflow-hidden"
-        role="article"
-      >
-        {/* Animated border glow */}
-        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(59,130,246,0.12) 0%, transparent 60%)`,
-          }}
-        />
-        <div className="absolute inset-0 rounded-2xl border border-blue-500/0 group-hover:border-blue-500/30 transition-all duration-500 pointer-events-none" />
+      {/* Animated border glow */}
+      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(59,130,246,0.08) 0%, transparent 60%)`,
+        }}
+      />
+      <div className="absolute inset-0 rounded-xl border border-blue-500/0 group-hover:border-blue-500/30 transition-all duration-500 pointer-events-none" />
 
-        {/* Card body */}
-        <div className="bg-[rgba(13,31,60,0.7)] backdrop-blur-sm">
-
-          {/* ── Image area ── */}
-          <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#0a1628] to-[#071020]">
-            {project.thumbnail ? (
-              <Image 
-                src={project.thumbnail} 
-                alt={project.title} 
-                fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-700" 
-              />
-            ) : (
-              <CardImagePlaceholder category={project.category} />
-            )}
-
-            {/* Image overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-transparent to-transparent opacity-70" />
-
-            {/* Category badge */}
-            <div className="absolute top-3 left-3">
-              <span className={tagClass}>{project.category}</span>
-            </div>
-
-            {/* Quick action links */}
-            <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg glass border border-[rgba(255,255,255,0.1)] text-text-muted hover:text-white hover:border-[rgba(59,130,246,0.4)] transition-all"
-                  aria-label="GitHub"
-                >
-                  <GithubIcon className="w-3.5 h-3.5" />
-                </a>
-              )}
-              {project.pdfUrl && (
-                <a
-                  href={project.pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg glass border border-[rgba(255,255,255,0.1)] text-text-muted hover:text-white hover:border-[rgba(59,130,246,0.4)] transition-all bg-black/40 backdrop-blur-md"
-                  aria-label="Research Paper"
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* ── Content area ── */}
-          <div className="p-5 space-y-3">
-            <div>
-              <h3
-                className="text-base font-semibold text-text-primary group-hover:text-blue-300 transition-colors duration-200 leading-snug"
-                style={{ fontFamily: 'var(--font-space-grotesk)' }}
+      {/* Content wrapper */}
+      <div className="p-6 md:p-8 flex flex-col h-full relative z-10">
+        
+        {/* Header: Tag + Links */}
+        <div className="flex items-center justify-between mb-5">
+          <span className={tagClass}>{project.category}</span>
+          <div className="flex items-center gap-3">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-text-muted hover:text-white transition-colors"
+                aria-label="GitHub Repository"
               >
-                {project.title}
-              </h3>
-              <p className="text-sm text-text-muted mt-1 line-clamp-2 leading-relaxed">
-                {project.shortDescription}
-              </p>
-            </div>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-1.5">
-              {project.technologies?.slice(0, 3).map((tag) => (
-                <span key={tag} className="tag-blue text-[11px] py-0.5 px-2 rounded-md border border-blue-500/20 bg-blue-500/10 text-blue-300">
-                  {tag}
-                </span>
-              ))}
-              {project.technologies && project.technologies.length > 3 && (
-                <span className="text-[11px] text-text-muted py-0.5 px-2 border border-white/5 rounded-md">
-                  +{project.technologies.length - 3}
-                </span>
-              )}
-            </div>
-
-            {/* CTA */}
-            <Link
-              href={`/projects/${project.slug}`}
-              className="flex items-center gap-1.5 text-sm font-medium text-blue-400 hover:text-cyan-400 transition-colors group/link pt-1"
-              aria-label={`View ${project.title} details`}
-            >
-              View Details
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-            </Link>
+                <GithubIcon className="w-5 h-5" />
+              </a>
+            )}
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-text-muted hover:text-white transition-colors"
+                aria-label="Live Demo"
+              >
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            )}
           </div>
         </div>
+
+        {/* Title & Description */}
+        <div className="mb-6 flex-grow">
+          <h3
+            className="text-xl font-bold text-text-primary group-hover:text-blue-300 transition-colors duration-200 mb-3"
+            style={{ fontFamily: 'var(--font-space-grotesk)' }}
+          >
+            {project.title}
+          </h3>
+          <p className="text-[15px] text-text-secondary leading-relaxed mb-4">
+            {project.shortDescription}
+          </p>
+
+          {/* Achievement Bullets */}
+          {project.achievements && project.achievements.length > 0 && (
+            <ul className="space-y-2 mb-2">
+              {project.achievements.map((achievement, idx) => (
+                <li key={idx} className="flex items-start gap-2 text-[14px] text-text-muted">
+                  <CheckCircle2 className="w-4 h-4 text-blue-500/70 mt-0.5 shrink-0" />
+                  <span className="leading-snug">{achievement}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Bottom Section: Tech Tags & View Button */}
+        <div className="pt-5 border-t border-[rgba(255,255,255,0.05)] mt-auto flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+          <div className="flex flex-wrap gap-2">
+            {project.technologies?.slice(0, 4).map((tag) => (
+              <span key={tag} className="text-[12px] font-medium text-text-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] py-1 px-2.5 rounded-md">
+                {tag}
+              </span>
+            ))}
+            {project.technologies && project.technologies.length > 4 && (
+              <span className="text-[12px] font-medium text-text-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] py-1 px-2.5 rounded-md">
+                +{project.technologies.length - 4}
+              </span>
+            )}
+          </div>
+
+          <Link
+            href={`/projects/${project.slug}`}
+            className="shrink-0 flex items-center gap-1.5 text-[14px] font-semibold text-blue-400 hover:text-cyan-400 transition-colors group/link"
+            aria-label={`View ${project.title} details`}
+          >
+            View Code
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+          </Link>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -8,23 +8,20 @@ const ParticleCanvas = dynamic(() => import('./ParticleCanvas'), { ssr: false })
 
 function ProfileGraphic() {
   return (
-    <div className="relative w-full max-w-[400px] lg:max-w-[450px] aspect-square mx-auto flex items-center justify-center overflow-hidden rounded-full">
-      {/* Very subtle glow */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-violet-500/10 blur-[80px]" />
+    <div className="relative w-full max-w-[400px] lg:max-w-[450px] aspect-square mx-auto flex items-center justify-center overflow-hidden rounded-3xl">
+      {/* Soft gradient base */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1628] to-[#020817] rounded-3xl border border-[rgba(255,255,255,0.02)]" />
       
       {/* Minimal grid lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] rounded-full [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]" />
       
-      {/* Outer elegant ring */}
-      <div className="absolute inset-4 rounded-full border border-[var(--color-blue-500)]/10" />
-      <div className="absolute inset-12 rounded-full border border-dashed border-[var(--color-violet-500)]/20 animate-spin-slow" style={{ animationDuration: '40s' }} />
-
-      {/* Abstract Center Graphic */}
-      <div className="relative w-32 h-32 flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-400/10 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: '4s' }} />
-        <div className="w-16 h-16 border border-blue-400/30 rounded-xl rotate-45 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.15)] bg-[#020817]/50 backdrop-blur-sm">
-          <div className="w-8 h-8 border border-cyan-400/40 rounded-lg -rotate-45" />
-        </div>
+      {/* Elegant animated mesh blob */}
+      <div className="relative w-64 h-64 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-cyan-400/10 to-transparent rounded-full blur-2xl animate-spin-slow" />
+        <div className="absolute w-40 h-40 bg-gradient-to-bl from-violet-500/10 to-blue-500/10 rounded-full blur-xl animate-float" style={{ animationDuration: '8s' }} />
+        
+        {/* Core focal point */}
+        <div className="w-1.5 h-1.5 rounded-full bg-blue-400/50 shadow-[0_0_15px_rgba(96,165,250,0.8)]" />
       </div>
     </div>
   );
@@ -79,7 +76,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-[var(--color-text-secondary)] text-base lg:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light"
           >
-            I build intelligent systems focused on real-world impact through machine learning, deep learning, NLP, and computer vision. My work combines practical engineering with scalable AI development.
+            I build practical AI systems focused on machine learning, NLP, computer vision, and real-world problem solving. My work combines AI engineering, scalable development, and deployment-focused solutions.
           </motion.p>
 
           <motion.div
@@ -99,6 +96,9 @@ export default function HeroSection() {
             </div>
             <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(16,185,129,0.15)] bg-[rgba(16,185,129,0.03)] hover:bg-[rgba(16,185,129,0.08)] transition-colors">
               <span className="text-xs sm:text-sm text-emerald-300 font-medium tracking-wide">Computer Vision</span>
+            </div>
+            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(236,72,153,0.15)] bg-[rgba(236,72,153,0.03)] hover:bg-[rgba(236,72,153,0.08)] transition-colors">
+              <span className="text-xs sm:text-sm text-pink-300 font-medium tracking-wide">Full Stack AI</span>
             </div>
           </motion.div>
         </div>
