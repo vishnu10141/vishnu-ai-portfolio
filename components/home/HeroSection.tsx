@@ -39,7 +39,7 @@ export default function HeroSection() {
             style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >
             <span className="text-white">NIMMAKAYALA{'\n'}</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-400">
               VISHNU
             </span>
           </motion.h1>
@@ -95,7 +95,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="flex flex-col items-center justify-center pt-8 lg:pt-0"
         >
-          <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-2 border-blue-500 p-1 mb-6" style={{ boxShadow: '0 0 30px var(--accent-glow-strong)' }}>
+          <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full border-2 border-blue-500 mb-6" style={{ boxShadow: '0 0 30px var(--accent-glow-strong)' }}>
             <div className="relative w-full h-full rounded-full overflow-hidden">
               <Image
                 src="/images/profile.jpg"

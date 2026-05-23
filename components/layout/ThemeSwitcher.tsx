@@ -74,7 +74,11 @@ export function ThemeSwitcher() {
                     {t.name}
                   </span>
                 </div>
-                {theme === t.value && <Check className="w-4 h-4 text-white" />}
+                {theme === t.value && (
+                  <div className={cn("w-4 h-4 rounded-full flex items-center justify-center", t.color)}>
+                    <Check className="w-3 h-3 text-[#0a101d] stroke-[3]" />
+                  </div>
+                )}
               </button>
             ))}
           </motion.div>
