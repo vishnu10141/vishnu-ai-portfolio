@@ -40,15 +40,6 @@ const skillGroups = [
     dotClass: 'bg-cyan-500',
     borderClass: 'hover:border-cyan-500/30',
     items: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion']
-  },
-  {
-    title: 'Domains & Expertise',
-    icon: Target,
-    colorClass: 'text-orange-400',
-    bgClass: 'bg-orange-500/10',
-    dotClass: 'bg-orange-500',
-    borderClass: 'hover:border-orange-500/30',
-    items: ['Medical AI', 'NLP', 'Computer Vision', 'Anomaly Detection']
   }
 ];
 
@@ -128,15 +119,17 @@ export default function SkillsSection() {
                   </h3>
                 </div>
 
-                {/* Skill List */}
-                <ul className="space-y-3 relative z-10">
+                {/* Skill Tags */}
+                <div className="flex flex-wrap gap-2 relative z-10 mt-6">
                   {group.items.map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm text-[var(--color-text-secondary)] hover:text-white transition-colors group/item">
-                      <div className={`w-1.5 h-1.5 rounded-full ${group.dotClass} opacity-70 group-hover/item:opacity-100 group-hover/item:scale-125 transition-all`} />
-                      <span className="flex-1 pb-1 border-b border-[rgba(255,255,255,0.03)] group-hover/item:border-[rgba(255,255,255,0.1)] transition-colors">{item}</span>
-                    </li>
+                    <span 
+                      key={item} 
+                      className="px-3 py-1.5 text-sm rounded-md bg-white/[0.03] border border-white/[0.05] text-[var(--color-text-secondary)] hover:text-white hover:bg-white/[0.08] transition-colors cursor-default"
+                    >
+                      {item}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </motion.div>
             );
           })}

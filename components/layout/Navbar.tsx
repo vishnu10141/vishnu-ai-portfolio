@@ -10,8 +10,8 @@ import { cn } from '@/lib/utils';
 
 const navLinks = [
   { label: 'Home',       href: '/'           },
-  { label: 'Projects',   href: '/projects'   },
-  { label: 'Research',   href: '/#research'  },
+  { label: 'Projects',       href: '/projects'           },
+  { label: 'Specializations',href: '/#specializations'  },
   { label: 'About',      href: '/#about'     },
   { label: 'Contact',    href: '/#contact'   },
 ];
@@ -101,7 +101,7 @@ export default function Navbar() {
             <ThemeSwitcher />
             <Link
               href="/login"
-              className="ml-2 px-4 py-2 text-sm font-semibold rounded-lg glass-light text-text-secondary hover:text-text-primary hover:border-[rgba(59,130,246,0.3)] border border-[rgba(255,255,255,0.08)] transition-all duration-200"
+              className="sr-only"
             >
               Admin
             </Link>
@@ -180,7 +180,7 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center w-full py-2.5 px-4 rounded-xl glass border border-[rgba(59,130,246,0.2)] text-sm font-semibold text-blue-400 hover:border-[rgba(59,130,246,0.4)] transition-all"
+                  className="sr-only"
                 >
                   Admin Login
                 </Link>

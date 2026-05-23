@@ -8,33 +8,22 @@ const ParticleCanvas = dynamic(() => import('./ParticleCanvas'), { ssr: false })
 
 function ProfileGraphic() {
   return (
-    <div className="relative w-full max-w-[400px] lg:max-w-[450px] aspect-square mx-auto flex items-center justify-center">
-      {/* Subtle background glow */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-violet-500/20 blur-[100px] rounded-full" />
+    <div className="relative w-full max-w-[400px] lg:max-w-[450px] aspect-square mx-auto flex items-center justify-center overflow-hidden rounded-full">
+      {/* Very subtle glow */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-violet-500/10 blur-[80px]" />
       
-      {/* Concentric Circles */}
-      <div className="absolute inset-0 rounded-full border border-dashed border-[var(--color-blue-500)]/20 animate-spin-slow" style={{ animationDuration: '30s' }} />
-      <div className="absolute inset-8 rounded-full border border-[var(--color-cyan-500)]/10" />
-      <div className="absolute inset-16 rounded-full border border-[var(--color-violet-500)]/10" />
+      {/* Minimal grid lines */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] rounded-full [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
       
-      {/* Decorator Dots */}
-      <div className="absolute top-[10%] left-[20%] w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_10px_#3b82f6]" />
-      <div className="absolute bottom-[15%] right-[15%] w-2 h-2 rounded-full bg-violet-400 shadow-[0_0_10px_#8b5cf6]" />
-      <div className="absolute top-[30%] right-[10%] w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#06b6d4]" />
-      
-      {/* Profile Image Placeholder */}
-      <div className="relative z-10 w-[75%] h-[75%] rounded-full border border-[var(--color-blue-500)]/30 shadow-[0_0_50px_rgba(59,130,246,0.3)] bg-[#0a1020] p-3 overflow-hidden group">
-        <div className="absolute inset-0 rounded-full border border-[var(--color-blue-400)]/20 m-3 pointer-events-none z-20" />
-        
-        {/* Replace the content of this div with an <img> tag once you have your photo! */}
-        <div className="w-full h-full rounded-full bg-[#060d1f] flex items-center justify-center overflow-hidden relative">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_50%)]" />
-          <User className="w-20 h-20 text-slate-700/50" />
-          
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-blue-500/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300">
-            <span className="text-xs font-semibold text-blue-300 tracking-[0.2em] uppercase">Your Photo</span>
-            <span className="text-[10px] text-blue-300/70 mt-1">Replace in HeroSection.tsx</span>
-          </div>
+      {/* Outer elegant ring */}
+      <div className="absolute inset-4 rounded-full border border-[var(--color-blue-500)]/10" />
+      <div className="absolute inset-12 rounded-full border border-dashed border-[var(--color-violet-500)]/20 animate-spin-slow" style={{ animationDuration: '40s' }} />
+
+      {/* Abstract Center Graphic */}
+      <div className="relative w-32 h-32 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-400/10 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="w-16 h-16 border border-blue-400/30 rounded-xl rotate-45 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.15)] bg-[#020817]/50 backdrop-blur-sm">
+          <div className="w-8 h-8 border border-cyan-400/40 rounded-lg -rotate-45" />
         </div>
       </div>
     </div>
@@ -88,9 +77,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[var(--color-text-secondary)] text-base lg:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+            className="text-[var(--color-text-secondary)] text-base lg:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light"
           >
-            I build intelligent systems that solve real-world problems. My work spans machine learning, deep learning, and full-stack development — from research and experimentation to scalable real-world deployments.
+            I build intelligent systems focused on real-world impact through machine learning, deep learning, NLP, and computer vision. My work combines practical engineering with scalable AI development.
           </motion.p>
 
           <motion.div
@@ -99,21 +88,17 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-wrap items-center justify-center lg:justify-start gap-3 lg:gap-4 pt-4"
           >
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.02)]">
-              <Code2 className="w-4 h-4 text-[var(--color-blue-400)]" />
-              <span className="text-[13px] text-[var(--color-text-secondary)]">Clean Code</span>
+            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(59,130,246,0.15)] bg-[rgba(59,130,246,0.03)] hover:bg-[rgba(59,130,246,0.08)] transition-colors">
+              <span className="text-xs sm:text-sm text-blue-300 font-medium tracking-wide">Machine Learning</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.02)]">
-              <Brain className="w-4 h-4 text-[var(--color-violet-400)]" />
-              <span className="text-[13px] text-[var(--color-text-secondary)]">AI & ML</span>
+            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(139,92,246,0.15)] bg-[rgba(139,92,246,0.03)] hover:bg-[rgba(139,92,246,0.08)] transition-colors">
+              <span className="text-xs sm:text-sm text-violet-300 font-medium tracking-wide">Deep Learning</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.02)]">
-              <Rocket className="w-4 h-4 text-[var(--color-cyan-400)]" />
-              <span className="text-[13px] text-[var(--color-text-secondary)]">Build & Deploy</span>
+            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(6,182,212,0.15)] bg-[rgba(6,182,212,0.03)] hover:bg-[rgba(6,182,212,0.08)] transition-colors">
+              <span className="text-xs sm:text-sm text-cyan-300 font-medium tracking-wide">NLP</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.02)]">
-              <Users className="w-4 h-4 text-[var(--color-emerald-400)]" />
-              <span className="text-[13px] text-[var(--color-text-secondary)]">Impact First</span>
+            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(16,185,129,0.15)] bg-[rgba(16,185,129,0.03)] hover:bg-[rgba(16,185,129,0.08)] transition-colors">
+              <span className="text-xs sm:text-sm text-emerald-300 font-medium tracking-wide">Computer Vision</span>
             </div>
           </motion.div>
         </div>

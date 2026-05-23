@@ -83,7 +83,7 @@ const typeConfig = {
 
 export default function ExperienceTimeline() {
   return (
-    <section id="experience" className="relative bg-[#020817] overflow-x-hidden" style={{ paddingTop: '120px', paddingBottom: '120px' }}>
+    <section id="experience" className="relative bg-[#020817] overflow-x-hidden py-24">
       <div className="relative container-width max-w-5xl mx-auto">
         
         {/* Header */}
@@ -130,7 +130,7 @@ export default function ExperienceTimeline() {
           {/* Vertical line (Left aligned for all sizes) */}
           <div className="absolute left-[22px] sm:left-[39px] top-4 bottom-4 w-px bg-gradient-to-b from-[rgba(59,130,246,0.5)] via-[rgba(139,92,246,0.2)] to-transparent" />
 
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-8">
             {timeline.map((item, i) => {
               const cfg = typeConfig[item.type];
               

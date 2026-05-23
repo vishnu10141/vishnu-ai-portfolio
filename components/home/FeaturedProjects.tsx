@@ -5,20 +5,47 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import ProjectCard, { type ProjectCardData } from '@/components/projects/ProjectCard';
 
-import { useEffect, useState } from 'react';
-import { useProjects } from '@/hooks/useProjects';
+const AUTHENTIC_PROJECTS = [
+  {
+    id: '1',
+    slug: 'radar-anomaly-detection',
+    title: 'Radar Anomaly Detection',
+    shortDescription: 'Machine learning system for signal segmentation and false-positive reduction in clutter-heavy radar environments.',
+    category: 'Anomaly Detection',
+    technologies: ['XGBoost', 'Random Forest', 'SVM', 'NumPy'],
+    featured: true
+  },
+  {
+    id: '2',
+    slug: 'telugu-llm-pipeline',
+    title: 'Telugu LLM Pipeline',
+    shortDescription: 'Large-scale automated NLP data pipeline preparing 100K+ high-quality annotated Telugu datasets for model training.',
+    category: 'NLP',
+    technologies: ['Python', 'Data Engineering', 'LLMs'],
+    featured: true
+  },
+  {
+    id: '3',
+    slug: 'brain-tumor-segmentation',
+    title: 'Brain Tumor Segmentation',
+    shortDescription: 'End-to-end medical imaging system using Residual Attention U-Net on the BraTS dataset with Streamlit visualization.',
+    category: 'Computer Vision',
+    technologies: ['PyTorch', 'MONAI', 'U-Net', 'Streamlit'],
+    featured: true
+  },
+  {
+    id: '4',
+    slug: 'credit-card-fraud',
+    title: 'Credit Card Fraud Detection',
+    shortDescription: 'Fraud detection pipeline processing 284K+ transactions using ensemble learning and SMOTE for extreme class imbalance.',
+    category: 'Machine Learning',
+    technologies: ['Scikit-learn', 'SMOTE', 'XGBoost'],
+    featured: true
+  }
+] as ProjectCardData[];
 
 export default function FeaturedProjects() {
-  const { fetchProjects, loading } = useProjects();
-  const [projects, setProjects] = useState<ProjectCardData[]>([]);
-
-  useEffect(() => {
-    fetchProjects().then(res => {
-      // Filter for only featured projects, take up to 3
-      const featured = res.filter(p => p.featured).slice(0, 3);
-      setProjects(featured);
-    });
-  }, [fetchProjects]);
+  const projects = AUTHENTIC_PROJECTS;
   return (
     <section id="projects" className="relative overflow-hidden" style={{ paddingTop: '120px', paddingBottom: '120px' }}>
       <div className="absolute inset-0 bg-bg-elevated" />
@@ -72,12 +99,8 @@ export default function FeaturedProjects() {
         </div>
 
         {/* Project grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loading ? (
-            <div className="col-span-full py-12 flex justify-center">
-              <div className="w-8 h-8 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
-            </div>
-          ) : projects.length === 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.length === 0 ? (
             <div className="col-span-full py-12 text-center text-white/50">
               No featured projects available.
             </div>
