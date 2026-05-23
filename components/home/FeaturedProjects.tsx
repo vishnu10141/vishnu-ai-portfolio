@@ -47,7 +47,7 @@ const AUTHENTIC_PROJECTS = [
 export default function FeaturedProjects() {
   const projects = AUTHENTIC_PROJECTS;
   return (
-    <section id="projects" className="relative overflow-hidden" style={{ paddingTop: '120px', paddingBottom: '120px' }}>
+    <section id="projects" className="relative overflow-hidden py-24">
       <div className="absolute inset-0 bg-bg-elevated" />
       <div className="absolute inset-0 bg-dots opacity-25" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
@@ -128,7 +128,7 @@ export default function FeaturedProjects() {
           className="text-center mt-12"
         >
           <Link href="/projects" className="btn-ghost inline-flex">
-            Browse All Research Projects
+            Browse All Projects
             <ArrowUpRight className="w-4 h-4" />
           </Link>
         </motion.div>

@@ -29,43 +29,7 @@ export default function AboutSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03)_0%,transparent_70%)] pointer-events-none" />
 
       <div className="relative container-width">
-        <div className="max-w-3xl mx-auto mb-24 text-center">
-          
-          {/* Left: About text */}
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 space-y-8"
-          >
-            <div className="space-y-4">
-              <span className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium text-blue-400 bg-blue-400/10 border border-blue-400/20">
-                About Me
-              </span>
-              <h2
-                className="text-4xl sm:text-5xl font-bold leading-[1.1] text-white tracking-tight"
-                style={{ fontFamily: 'var(--font-space-grotesk)' }}
-              >
-                Building AI that <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">matters</span>
-              </h2>
-            </div>
 
-            <div className="space-y-5 text-slate-400 leading-relaxed text-lg font-light">
-              <p>
-                I&apos;m a researcher and engineer at the intersection of academic AI and real-world impact.
-                My work spans from fundamental ML theory to deploying models that serve millions of users.
-              </p>
-              <p>
-                I believe the best AI systems are those that are not only technically rigorous but also
-                interpretable, efficient, and built with human values in mind.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Research interests */}
-        <div className="pt-24 pb-12">
           <div className="text-center mb-16 space-y-5">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -121,7 +85,6 @@ export default function AboutSection() {
               );
             })}
           </div>
-        </div>
       </div>
     </section>
   );

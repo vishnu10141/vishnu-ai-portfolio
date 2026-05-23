@@ -48,7 +48,7 @@ export default function SkillsSection() {
   const titleInView = useInView(titleRef, { once: true });
 
   return (
-    <section id="skills" className="relative overflow-x-hidden bg-[#020817]" style={{ paddingTop: '120px', paddingBottom: '120px' }}>
+    <section id="skills" className="relative overflow-x-hidden bg-[#020817] py-24">
       {/* Visual separator from previous section */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-[rgba(59,130,246,0.2)] to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-xl h-[2px] bg-gradient-to-r from-transparent via-[rgba(59,130,246,0.4)] to-transparent blur-sm" />
