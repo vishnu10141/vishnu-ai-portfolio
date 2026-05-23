@@ -115,6 +115,10 @@ export default function Navbar() {
             >
               <Lock className="w-[15px] h-[15px]" />
             </Link>
+
+            <div className="ml-4 pl-4 border-l border-white/10">
+              <ThemeSwitcher />
+            </div>
           </div>
 
           {/* Mobile hamburger */}

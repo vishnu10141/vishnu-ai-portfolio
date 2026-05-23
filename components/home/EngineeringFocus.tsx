@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Box, Rocket, Zap, Layers, Globe } from 'lucide-react';
+import { Box, Rocket, Zap, Layers, Globe, Code2 } from 'lucide-react';
 
 const FOCUS_AREAS = [
   {
@@ -29,16 +29,26 @@ const FOCUS_AREAS = [
     title: 'Real World Impact',
     description: 'Solving meaningful problems with practical AI.',
   },
+  {
+    icon: Code2,
+    title: 'Full Stack AI',
+    description: 'Combining ML, backend, and cloud for real-world apps.',
+  },
 ];
 
 export default function EngineeringFocus() {
   return (
-    <section className="w-full pt-20">
-      <div className="mb-16">
-        <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-500 block mb-2">ENGINEERING FOCUS</span>
+    <section className="w-full pt-16">
+      <div className="relative mb-16 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-white/[0.05]"></div>
+        </div>
+        <div className="relative px-6" style={{ backgroundColor: 'var(--bg-base, #040812)' }}>
+          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-500">ENGINEERING FOCUS</span>
+        </div>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 divide-x divide-white/[0.05] border-x border-white/[0.05]">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-white/[0.05] border-x border-white/[0.05]">
         {FOCUS_AREAS.map((area, idx) => {
             const Icon = area.icon;
             return (

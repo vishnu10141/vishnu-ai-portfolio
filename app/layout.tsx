@@ -65,7 +65,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="antialiased">
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             <CommandPalette />
             <FloatingWidgets />
