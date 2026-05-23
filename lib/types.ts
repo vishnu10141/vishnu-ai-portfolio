@@ -7,22 +7,22 @@ export interface Project {
   slug: string;
   category: string; // e.g., 'Medical AI', 'LLM', 'Computer Vision'
   shortDescription: string;
-  detailedOverview: string; // Markdown
-  outcomes: string; // Markdown
-  applications: string; // Markdown
-  librariesUsed: string[];
-  technologies: string[];
-  sampleCode: string; // Markdown or raw code
+  detailedOverview?: string; // Markdown
+  outcomes?: string; // Markdown
+  applications?: string; // Markdown
+  librariesUsed?: string[];
+  technologies?: string[];
+  sampleCode?: string; // Markdown or raw code
   githubUrl?: string;
   demoUrl?: string;
-  images: string[]; // Array of Firebase Storage URLs
-  thumbnail: string; // Main image URL
+  images?: string[]; // Array of Firebase Storage URLs
+  thumbnail?: string; // Main image URL
   pdfUrl?: string;
-  published: boolean; // Computed or duplicate of status
-  status: ProjectStatus;
-  featured: boolean;
-  researchType: ResearchType;
-  completionDate: string; // ISO Date String
-  createdAt: string; // ISO Date String
-  updatedAt: string; // ISO Date String
+  published?: boolean; // Computed or duplicate of status
+  status?: ProjectStatus;
+  featured?: boolean;
+  researchType?: ResearchType;
+  completionDate?: string; // ISO Date String
+  createdAt?: string; // ISO Date String
+  updatedAt?: string; // ISO Date String
 }

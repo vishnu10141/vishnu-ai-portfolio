@@ -56,9 +56,9 @@ export function Uploader({ folder, accept = "image/*", onUploadSuccess, isPdf = 
   return (
     <div className="w-full">
       <div
-        className={`relative flex flex-col items-center justify-center w-full h-48 rounded-xl border-2 border-dashed transition-all duration-200 ${
-          dragActive ? 'border-blue-500 bg-blue-500/5' : 'border-white/10 bg-white/5 hover:border-white/20'
-        } ${uploading ? 'opacity-50 pointer-events-none' : 'cursor-pointer'}`}
+        className={`relative flex flex-col items-center justify-center w-full h-48 rounded-xl border-2 border-dashed transition-all duration-300 ${
+          dragActive ? 'border-blue-500 bg-blue-500/[0.02] shadow-[0_0_30px_rgba(59,130,246,0.15)]' : 'border-white/10 bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.03]'
+        } ${uploading ? 'opacity-50 pointer-events-none' : 'cursor-pointer'} overflow-hidden`}
         onDragEnter={onDrag}
         onDragLeave={onDrag}
         onDragOver={onDrag}

@@ -1,43 +1,106 @@
 'use client';
 
-import { Send, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Send, Mail, MapPin, Briefcase, ArrowRight } from 'lucide-react';
+
+const contactInfo = [
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'nvishnu1014@gmail.com',
+    href: 'mailto:nvishnu1014@gmail.com',
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: 'Andhra Pradesh, India',
+  },
+  {
+    icon: Briefcase,
+    label: 'Open to',
+    value: 'AI Engineer, ML Engineer, Research Roles',
+  },
+];
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-12 relative bg-[#020817]">
+    <section id="contact" className="relative py-28 bg-[#060d1b]">
+      {/* Subtle top divider */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+
       <div className="container-width">
-        <div className="rounded-2xl bg-[#0a1020] border border-[rgba(255,255,255,0.05)] flex flex-col md:flex-row items-center justify-between p-6 lg:p-8">
-          
-          {/* Left section */}
-          <div className="flex items-center gap-5 md:pr-10 md:border-r border-[rgba(255,255,255,0.05)] w-full md:w-auto">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-blue-500/10 text-[var(--color-blue-400)] flex-shrink-0">
-              <Send className="w-5 h-5 -ml-1 mt-1" />
-            </div>
-            <div>
-              <h3 className="text-xl text-white tracking-wide">
-                Let's build something <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-blue-400)] to-[var(--color-violet-400)]">meaningful.</span>
-              </h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mt-1">
-                Open to research collaborations and exciting opportunities.
-              </p>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left: CTA */}
+          <div className="space-y-6">
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight"
+              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+            >
+              <span className="text-white">Let&apos;s Build </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">
+                Something Amazing
+              </span>
+            </motion.h2>
 
-          {/* Right section */}
-          <div className="flex items-center gap-5 mt-6 md:mt-0 w-full md:w-auto md:pl-10">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[var(--color-violet-500)]/10 text-[var(--color-violet-400)] flex-shrink-0 border border-[var(--color-violet-500)]/20">
-              <Mail className="w-5 h-5" />
-            </div>
-            <div>
-              <a href="mailto:you@email.com" className="text-base font-semibold text-[var(--color-blue-400)] hover:text-white transition-colors">
-                you@email.com
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-slate-400 text-base max-w-md leading-relaxed"
+            >
+              Get in touch for collaborations, projects, or just a friendly hello.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <a
+                href="mailto:nvishnu1014@gmail.com"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/20"
+              >
+                Contact Me
+                <ArrowRight className="w-4 h-4" />
               </a>
-              <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">
-                Open to new opportunities
-              </p>
-            </div>
+            </motion.div>
           </div>
 
+          {/* Right: Contact details */}
+          <div className="space-y-4">
+            {contactInfo.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-[#081120]/70 border border-white/[0.06]"
+                >
+                  <div className="w-10 h-10 shrink-0 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-[12px] text-slate-500 font-medium tracking-wide uppercase">{item.label}</p>
+                    {item.href ? (
+                      <a href={item.href} className="text-sm font-semibold text-white hover:text-blue-400 transition-colors">
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="text-sm font-medium text-white">{item.value}</p>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

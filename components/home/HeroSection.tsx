@@ -1,113 +1,146 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code2, Brain, Rocket, Users, User } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, Download, ChevronDown } from 'lucide-react';
 
-const ParticleCanvas = dynamic(() => import('./ParticleCanvas'), { ssr: false });
+const skillPills = [
+  'Machine Learning',
+  'Deep Learning',
+  'NLP',
+  'Computer Vision',
+  'Full Stack AI',
+];
 
-function ProfileImage() {
-  return (
-    <div className="relative w-full max-w-[280px] lg:max-w-[340px] aspect-square mx-auto rounded-full p-2 border border-[rgba(59,130,246,0.15)] bg-[rgba(59,130,246,0.02)] shadow-[0_0_30px_rgba(59,130,246,0.1)]">
-      <div className="absolute inset-0 rounded-full bg-blue-500/5 blur-2xl animate-pulse" style={{ animationDuration: '4s' }} />
-      <div className="relative w-full h-full rounded-full overflow-hidden border border-[rgba(255,255,255,0.08)]">
-        <Image
-          src="/images/profile.jpg"
-          alt="Nimmakayala Vishnu"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-    </div>
-  );
-}
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, delay },
+});
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#020817]">
-      <ParticleCanvas />
-      
-      {/* Background glow behind text */}
-      <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[var(--color-blue-500)]/5 blur-[150px] rounded-full pointer-events-none" />
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#020817]">
+      {/* Subtle gradient mesh background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-violet-500/[0.03] rounded-full blur-[120px]" />
+      </div>
 
-      <div className="relative z-10 container-width py-24 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-        
-        {/* Left Content */}
-        <div className="flex-1 text-center lg:text-left space-y-8">
+      <div className="relative z-10 container-width py-32 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+
+          {/* Left: Text Content */}
+          <div className="space-y-7 text-center lg:text-left">
+            <motion.div {...fadeUp(0)}>
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.15em] uppercase text-blue-400 bg-blue-500/[0.08] border border-blue-500/[0.12]">
+                AI Engineer
+              </span>
+            </motion.div>
+
+            <motion.h1
+              {...fadeUp(0.1)}
+              className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight leading-[1.1]"
+              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+            >
+              <span className="text-white">NIMMAKAYALA{'\n'}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-violet-400">
+                VISHNU
+              </span>
+            </motion.h1>
+
+            <motion.p
+              {...fadeUp(0.2)}
+              className="text-slate-400 text-base lg:text-[17px] max-w-xl mx-auto lg:mx-0 leading-relaxed"
+            >
+              I build practical AI systems focused on machine learning, NLP, computer vision, anomaly detection, and deployment-ready applications. My work combines AI engineering, scalable development, and real-world problem solving.
+            </motion.p>
+
+            {/* Skill pills */}
+            <motion.div
+              {...fadeUp(0.3)}
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5"
+            >
+              {skillPills.map((label) => (
+                <span
+                  key={label}
+                  className="px-3 py-1 rounded-md text-[11px] font-medium border border-white/[0.04] bg-white/[0.02] text-slate-300 transition-colors hover:bg-white/[0.04]"
+                >
+                  {label}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              {...fadeUp(0.4)}
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2"
+            >
+              <motion.div whileHover={{ scale: 1.02, y: -1 }} transition={{ type: 'spring', stiffness: 400, damping: 25 }}>
+                <Link
+                  href="#projects"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 premium-transition"
+                >
+                  View Projects
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02, y: -1 }} transition={{ type: 'spring', stiffness: 400, damping: 25 }}>
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold text-slate-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] premium-transition"
+                >
+                  Download Resume
+                  <Download className="w-4 h-4" />
+                </a>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right: Profile Image */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="flex justify-center lg:justify-end"
           >
-            <span className="text-[var(--color-cyan-400)] text-[11px] font-semibold tracking-[0.2em] uppercase">
-              ABOUT ME
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
-          >
-            <span className="text-white">NIMMAKAYALA </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-blue-400)] to-[var(--color-violet-400)]">
-              VISHNU
-            </span>
-          </motion.h1>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"
-          >
-            AI Engineer
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[var(--color-text-secondary)] text-base lg:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light"
-          >
-            I build practical AI systems focused on machine learning, NLP, computer vision, anomaly detection, and deployment-focused applications. My work combines AI engineering, scalable development, and real-world problem solving across healthcare, radar systems, and language technologies.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center lg:justify-start gap-3 lg:gap-4 pt-4"
-          >
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(59,130,246,0.15)] bg-[rgba(59,130,246,0.03)] hover:bg-[rgba(59,130,246,0.08)] transition-colors">
-              <span className="text-xs sm:text-sm text-blue-300 font-medium tracking-wide">Machine Learning</span>
-            </div>
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(139,92,246,0.15)] bg-[rgba(139,92,246,0.03)] hover:bg-[rgba(139,92,246,0.08)] transition-colors">
-              <span className="text-xs sm:text-sm text-violet-300 font-medium tracking-wide">Deep Learning</span>
-            </div>
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(6,182,212,0.15)] bg-[rgba(6,182,212,0.03)] hover:bg-[rgba(6,182,212,0.08)] transition-colors">
-              <span className="text-xs sm:text-sm text-cyan-300 font-medium tracking-wide">NLP</span>
-            </div>
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(16,185,129,0.15)] bg-[rgba(16,185,129,0.03)] hover:bg-[rgba(16,185,129,0.08)] transition-colors">
-              <span className="text-xs sm:text-sm text-emerald-300 font-medium tracking-wide">Computer Vision</span>
-            </div>
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(236,72,153,0.15)] bg-[rgba(236,72,153,0.03)] hover:bg-[rgba(236,72,153,0.08)] transition-colors">
-              <span className="text-xs sm:text-sm text-pink-300 font-medium tracking-wide">Full Stack AI</span>
-            </div>
+            <motion.div
+              whileHover={{ scale: 1.01, y: -2 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="relative w-[280px] h-[340px] sm:w-[320px] sm:h-[380px] lg:w-[360px] lg:h-[430px]"
+            >
+              {/* Ambient premium lighting behind image */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-500/10 blur-[100px] rounded-full pointer-events-none" />
+              
+              {/* Subtle edge glow ONLY */}
+              <div className="absolute -inset-0.5 rounded-[26px] bg-gradient-to-br from-white/[0.12] to-transparent blur-md" />
+              
+              {/* Image container */}
+              <div className="relative w-full h-full rounded-3xl overflow-hidden border border-white/[0.06] shadow-xl shadow-black/40 bg-[#081120]">
+                <Image
+                  src="/images/profile.jpg"
+                  alt="Nimmakayala Vishnu"
+                  fill
+                  className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+                  priority
+                />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Right Content */}
+        {/* Scroll indicator */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2, type: 'spring' }}
-          className="flex-1 w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="hidden lg:flex flex-col items-center gap-2 absolute bottom-12 left-1/2 -translate-x-1/2"
         >
-          <ProfileImage />
+          <span className="text-[11px] text-slate-600 tracking-widest uppercase">Scroll to explore</span>
+          <ChevronDown className="w-4 h-4 text-slate-600 animate-bounce" style={{ animationDuration: '2s' }} />
         </motion.div>
       </div>
     </section>

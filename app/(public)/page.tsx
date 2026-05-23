@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/home/HeroSection';
-import SkillsSection from '@/components/home/SkillsSection';
-import ExperienceTimeline from '@/components/home/ExperienceTimeline';
-import FeaturedProjects from '@/components/home/FeaturedProjects';
 import AboutSection from '@/components/home/AboutSection';
+import SkillsSection from '@/components/home/SkillsSection';
+import FeaturedProjects from '@/components/home/FeaturedProjects';
+import ExperienceTimeline from '@/components/home/ExperienceTimeline';
+import ContactSection from '@/components/home/ContactSection';
+
 export const metadata: Metadata = {
   title: 'Home | AI Engineer Portfolio',
   description:
@@ -18,6 +20,7 @@ export default function HomePage() {
       <SkillsSection />
       <FeaturedProjects />
       <ExperienceTimeline />
+      <ContactSection />
     </>
   );
 }

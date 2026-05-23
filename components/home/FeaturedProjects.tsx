@@ -5,51 +5,51 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import ProjectCard, { type ProjectCardData } from '@/components/projects/ProjectCard';
 
-const AUTHENTIC_PROJECTS = [
+const PROJECTS: ProjectCardData[] = [
   {
     id: '1',
     slug: 'radar-anomaly-detection',
     title: 'Radar Anomaly Detection',
     shortDescription: 'Machine learning system for signal segmentation and false-positive reduction in clutter-heavy radar environments.',
     achievements: [
-      'Engineered a robust segmentation pipeline reducing false positives by 30%.',
+      'Engineered a robust segmentation pipeline reducing false positives by 25%.',
       'Deployed optimized XGBoost and SVM models for real-time inference.',
-      'Developed at DRDO under restricted defense environments.'
+      'Developed at DRDO under restricted defense environments.',
     ],
     category: 'Anomaly Detection',
     technologies: ['XGBoost', 'Random Forest', 'SVM', 'NumPy'],
     githubUrl: 'https://github.com/nvishnu1014',
-    featured: true
+    featured: true,
   },
   {
     id: '2',
     slug: 'telugu-llm-pipeline',
     title: 'Telugu LLM Pipeline',
-    shortDescription: 'Large-scale automated NLP data pipeline preparing 100K+ high-quality annotated Telugu datasets for model training.',
+    shortDescription: 'Large-scale automated NLP data pipeline processing 100K+ high-quality annotated Telugu datasets for model training.',
     achievements: [
       'Architected distributed text scraping & cleaning system for native Telugu.',
       'Boosted annotation throughput by 200% via automated pre-labeling.',
-      'Supported research at IIIT Hyderabad applied NLP lab.'
+      'Supported research at IIIT Hyderabad applied NLP lab.',
     ],
     category: 'NLP',
     technologies: ['Python', 'Data Engineering', 'LLMs', 'PyTorch'],
     githubUrl: 'https://github.com/nvishnu1014',
-    featured: true
+    featured: true,
   },
   {
     id: '3',
     slug: 'brain-tumor-segmentation',
     title: 'Brain Tumor Segmentation',
-    shortDescription: 'End-to-end medical imaging system using Residual Attention U-Net on the BraTS dataset with Streamlit visualization.',
+    shortDescription: 'End-to-end medical imaging system using Residual Attention U-Net on BraTS 2020 with Streamlit visualization.',
     achievements: [
-      'Achieved 0.89 Dice score on multi-modal MRI scans.',
+      'Achieved Dice score of 0.87 → outperforming baselines.',
       'Integrated MONAI for scalable distributed training.',
-      'Built interactive diagnostic UI used for model validation.'
+      'Developed Streamlit dashboard (2D/3D visualization, tumor volume, explainability maps).',
     ],
     category: 'Computer Vision',
     technologies: ['PyTorch', 'MONAI', 'U-Net', 'Streamlit'],
     githubUrl: 'https://github.com/nvishnu1014',
-    featured: true
+    featured: true,
   },
   {
     id: '4',
@@ -58,52 +58,43 @@ const AUTHENTIC_PROJECTS = [
     shortDescription: 'Fraud detection pipeline processing 284K+ transactions using ensemble learning and SMOTE for extreme class imbalance.',
     achievements: [
       'Handled 99.8% class imbalance via advanced SMOTE sampling.',
-      'Delivered 95% precision on fraud class with Random Forests.',
-      'Implemented full CI/CD deployment pipeline for model updates.'
+      'Achieved 99.2% AUC, 95% precision on fraud class.',
+      'Applied SMOTE, feature engineering, cross-validation, and hyperparameter tuning.',
     ],
     category: 'Machine Learning',
     technologies: ['Scikit-learn', 'SMOTE', 'XGBoost', 'Pandas'],
     githubUrl: 'https://github.com/nvishnu1014',
-    featured: true
-  }
-] as ProjectCardData[];
+    featured: true,
+  },
+];
 
 export default function FeaturedProjects() {
-  const projects = AUTHENTIC_PROJECTS;
   return (
-    <section id="projects" className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 bg-bg-elevated" />
-      <div className="absolute inset-0 bg-dots opacity-25" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
+    <section id="projects" className="relative py-28 bg-[#060d1b]">
+      {/* Subtle top divider */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
-      {/* Left glow */}
-      <div
-        className="absolute -left-40 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none animate-glow-pulse"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)', animationDuration: '7s' }}
-      />
-
-      <div className="relative container-width">
+      <div className="container-width">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div className="space-y-3">
             <motion.span
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="section-label"
+              className="inline-block text-[11px] font-semibold tracking-[0.2em] uppercase text-cyan-400"
             >
-              Featured Work
+              FEATURED WORK
             </motion.span>
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl font-bold"
+              className="text-3xl sm:text-4xl font-bold tracking-tight"
               style={{ fontFamily: 'var(--font-space-grotesk)' }}
             >
-              Selected <span className="gradient-text">Projects</span>
+              Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">Projects</span>
             </motion.h2>
           </div>
           <motion.div
@@ -114,7 +105,7 @@ export default function FeaturedProjects() {
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-cyan-400 transition-colors group"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 hover:text-cyan-400 transition-colors group"
             >
               View all projects
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -124,34 +115,31 @@ export default function FeaturedProjects() {
 
         {/* Project grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.length === 0 ? (
-            <div className="col-span-full py-12 text-center text-white/50">
-              No featured projects available.
-            </div>
-          ) : (
-            projects.map((project, i) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ))
-          )}
+          {PROJECTS.map((project, i) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
         </div>
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="text-center mt-12"
+          className="text-center mt-10"
         >
-          <Link href="/projects" className="btn-ghost inline-flex">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-slate-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200"
+          >
             Browse All Projects
             <ArrowUpRight className="w-4 h-4" />
           </Link>

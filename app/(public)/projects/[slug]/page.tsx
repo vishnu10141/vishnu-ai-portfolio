@@ -80,7 +80,7 @@ export default async function ProjectDetailPage({
             <span className="tag-blue">{project.category}</span>
             <div className="flex items-center gap-1.5 text-xs text-text-muted">
               <Calendar className="w-3.5 h-3.5" />
-              {new Date(project.completionDate).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
+              {new Date(project.completionDate || '').toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
             </div>
             {project.researchType && (
               <div className="flex items-center gap-1.5 text-xs text-text-muted">

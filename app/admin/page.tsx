@@ -8,6 +8,7 @@ import { Project } from '@/lib/types';
 import Link from 'next/link';
 import { Plus, Edit3, Trash2, Eye, EyeOff, LayoutDashboard, Settings, FileText, CheckCircle2, Clock } from 'lucide-react';
 import { ConfirmModal } from '@/components/admin/ConfirmModal';
+import { toast } from 'sonner';
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
@@ -35,12 +36,15 @@ export default function AdminDashboard() {
     setIsDeleting(true);
     try {
       await deleteProject(projectToDelete.id);
+      await deleteProject(projectToDelete.id);
       // Optimistic UI Update
       setProjects(projects.filter(p => p.id !== projectToDelete.id));
       setDeleteModalOpen(false);
       setProjectToDelete(null);
+      toast.success('Project deleted successfully');
     } catch (err) {
       console.error(err);
+      toast.error('Failed to delete project');
     } finally {
       setIsDeleting(false);
     }
@@ -84,7 +88,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <motion.div 
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0 }}
-            className="p-6 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-4"
+            className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-4 hover:border-white/[0.1] premium-transition"
           >
             <div className="p-4 rounded-xl bg-blue-500/10 text-blue-400">
               <FileText className="w-6 h-6" />
@@ -97,7 +101,7 @@ export default function AdminDashboard() {
 
           <motion.div 
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="p-6 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-4"
+            className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-4 hover:border-white/[0.1] premium-transition"
           >
             <div className="p-4 rounded-xl bg-emerald-500/10 text-emerald-400">
               <CheckCircle2 className="w-6 h-6" />
@@ -110,7 +114,7 @@ export default function AdminDashboard() {
 
           <motion.div 
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="p-6 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-4"
+            className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-4 hover:border-white/[0.1] premium-transition"
           >
             <div className="p-4 rounded-xl bg-amber-500/10 text-amber-400">
               <Clock className="w-6 h-6" />
@@ -138,7 +142,7 @@ export default function AdminDashboard() {
             </Link>
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <div className="bg-[#081120]/40 border border-white/[0.06] rounded-2xl overflow-hidden shadow-2xl shadow-black/20">
             {loading ? (
               <div className="p-12 text-center text-white/40">Loading projects...</div>
             ) : projects.length === 0 ? (
@@ -180,7 +184,7 @@ export default function AdminDashboard() {
                         <p className="text-sm text-white/50 mt-1 flex items-center gap-2">
                           <span>{project.category}</span>
                           <span>•</span>
-                          <span>{new Date(project.updatedAt).toLocaleDateString()}</span>
+                          <span>{new Date(project.updatedAt || '').toLocaleDateString()}</span>
                         </p>
                       </div>
                     </div>
