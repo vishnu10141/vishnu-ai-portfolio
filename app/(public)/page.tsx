@@ -17,7 +17,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <StatsAndTech />
       <EngineeringFocus />
       <FeaturedProjects />
       <ExperienceTimeline />

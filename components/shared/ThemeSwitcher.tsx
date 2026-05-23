@@ -6,10 +6,11 @@ import { Palette, Terminal, Zap, Code, Monitor, ChevronDown } from 'lucide-react
 import { motion, AnimatePresence } from 'framer-motion';
 
 const THEMES = [
-  { id: 'research', label: 'Research Lab', icon: Monitor },
-  { id: 'matrix', label: 'Matrix', icon: Terminal },
-  { id: 'cyberpunk', label: 'Cyberpunk', icon: Zap },
-  { id: 'vscode', label: 'VS Code One Dark', icon: Code },
+  { id: 'blue', label: 'Deep Blue', icon: Monitor },
+  { id: 'green', label: 'Neon Green', icon: Terminal },
+  { id: 'purple', label: 'Cyber Purple', icon: Zap },
+  { id: 'amber', label: 'Solar Amber', icon: Code },
+  { id: 'cyan', label: 'Quantum Cyan', icon: Palette },
 ];
 
 export function ThemeSwitcher() {

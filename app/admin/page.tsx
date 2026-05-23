@@ -1,24 +1,17 @@
 'use client';
 
-import { useAuth } from '@/contexts/AuthContext';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useProjects } from '@/hooks/useProjects';
 import { useEffect, useState } from 'react';
 import { Project } from '@/lib/types';
 import Link from 'next/link';
-import { Plus, Edit3, Trash2, Eye, EyeOff, LayoutDashboard, Settings, FileText, CheckCircle2, Clock } from 'lucide-react';
-import { ConfirmModal } from '@/components/admin/ConfirmModal';
-import { toast } from 'sonner';
+import { 
+  Folder, Edit3, ImageIcon, Cloud, ExternalLink, Plus, HardDrive, CheckCircle2, Clock, GitCommit, Settings, PlayCircle
+} from 'lucide-react';
 
 export default function AdminDashboard() {
-  const { user, logout } = useAuth();
-  const { fetchProjects, deleteProject } = useProjects();
+  const { fetchProjects } = useProjects();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     loadProjects();
@@ -26,199 +19,141 @@ export default function AdminDashboard() {
 
   const loadProjects = async () => {
     setLoading(true);
-    const data = await fetchProjects(true); // include drafts
+    const data = await fetchProjects(true);
     setProjects(data);
     setLoading(false);
   };
 
-  const handleDelete = async () => {
-    if (!projectToDelete) return;
-    setIsDeleting(true);
-    try {
-      await deleteProject(projectToDelete.id);
-      await deleteProject(projectToDelete.id);
-      // Optimistic UI Update
-      setProjects(projects.filter(p => p.id !== projectToDelete.id));
-      setDeleteModalOpen(false);
-      setProjectToDelete(null);
-      toast.success('Project deleted successfully');
-    } catch (err) {
-      console.error(err);
-      toast.error('Failed to delete project');
-    } finally {
-      setIsDeleting(false);
-    }
-  };
-
-  const confirmDelete = (project: Project) => {
-    setProjectToDelete(project);
-    setDeleteModalOpen(true);
-  };
+  const activeProjects = projects.filter(p => p.status === 'published').length;
+  const draftProjects = projects.filter(p => p.status === 'draft').length;
 
   return (
-    <div className="min-h-screen bg-[#020817] text-slate-200">
+    <div className="space-y-6">
       
-      {/* Sidebar / Header */}
-      <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#020817]/80 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-              <LayoutDashboard className="w-4 h-4 text-blue-400" />
+      {/* Vercel-Style Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { label: 'Total Projects', value: projects.length.toString(), icon: Folder, color: 'text-blue-400' },
+          { label: 'Active Featured', value: activeProjects.toString(), icon: PlayCircle, color: 'text-emerald-400' },
+          { label: 'Drafts', value: draftProjects.toString(), icon: Edit3, color: 'text-amber-400' },
+          { label: 'Media Assets', value: '24', icon: ImageIcon, color: 'text-purple-400' },
+        ].map((stat, i) => (
+          <div key={i} className="bg-[#090f1b] border border-white/[0.04] rounded-[14px] p-5 flex flex-col justify-between hover:bg-[#0c1424] transition-colors group">
+            <div className="flex justify-between items-start">
+              <span className="text-[13px] text-slate-400 font-medium">{stat.label}</span>
+              <stat.icon className={`w-4 h-4 ${stat.color} opacity-70`} />
             </div>
-            <h1 className="text-xl font-semibold text-white tracking-tight">Admin Center</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-white/60">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              {user?.email}
+            <div className="mt-4">
+              <h3 className="text-[32px] font-bold text-white tracking-tight leading-none">{loading ? '-' : stat.value}</h3>
             </div>
-            <button
-              onClick={logout}
-              className="px-4 py-2 hover:bg-white/5 text-white/60 hover:text-white rounded-lg transition-colors text-sm font-medium"
-            >
-              Sign Out
-            </button>
           </div>
-        </div>
-      </header>
+        ))}
+      </div>
 
-      <main className="max-w-7xl mx-auto px-6 py-12 space-y-8">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         
-        {/* Overview Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0 }}
-            className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-4 hover:border-white/[0.1] premium-transition"
-          >
-            <div className="p-4 rounded-xl bg-blue-500/10 text-blue-400">
-              <FileText className="w-6 h-6" />
+        {/* Recent Edits & Drafts */}
+        <div className="xl:col-span-2 space-y-6">
+          <div className="bg-[#090f1b] border border-white/[0.04] rounded-[14px] p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-[14px] font-semibold text-white">Recent Edits</h3>
+              <Link href="/admin/projects" className="text-[12px] font-medium text-blue-400 hover:text-blue-300">View All Projects</Link>
             </div>
-            <div>
-              <p className="text-sm text-white/50 font-medium">Total Projects</p>
-              <h3 className="text-2xl font-bold text-white mt-1">{loading ? '-' : projects.length}</h3>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-4 hover:border-white/[0.1] premium-transition"
-          >
-            <div className="p-4 rounded-xl bg-emerald-500/10 text-emerald-400">
-              <CheckCircle2 className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-sm text-white/50 font-medium">Published</p>
-              <h3 className="text-2xl font-bold text-white mt-1">{loading ? '-' : projects.filter(p => p.status === 'published').length}</h3>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-4 hover:border-white/[0.1] premium-transition"
-          >
-            <div className="p-4 rounded-xl bg-amber-500/10 text-amber-400">
-              <Clock className="w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-sm text-white/50 font-medium">Drafts</p>
-              <h3 className="text-2xl font-bold text-white mt-1">{loading ? '-' : projects.filter(p => p.status === 'draft').length}</h3>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Projects Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-          className="space-y-6"
-        >
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-white">Project Library</h2>
-            <Link 
-              href="/admin/projects/create"
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-black hover:bg-slate-200 rounded-xl font-medium transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              New Project
-            </Link>
-          </div>
-
-          <div className="bg-[#081120]/40 border border-white/[0.06] rounded-2xl overflow-hidden shadow-2xl shadow-black/20">
-            {loading ? (
-              <div className="p-12 text-center text-white/40">Loading projects...</div>
-            ) : projects.length === 0 ? (
-              <div className="p-24 text-center">
-                <div className="w-16 h-16 mx-auto bg-white/5 rounded-2xl flex items-center justify-center mb-4">
-                  <FileText className="w-8 h-8 text-white/20" />
-                </div>
-                <h3 className="text-xl font-semibold text-white">No projects yet</h3>
-                <p className="text-white/40 mt-2">Create your first portfolio project to get started.</p>
-              </div>
-            ) : (
-              <div className="divide-y divide-white/5">
-                {projects.map((project) => (
-                  <div key={project.id} className="p-4 sm:p-6 flex items-center justify-between hover:bg-white/[0.02] transition-colors group">
-                    <div className="flex items-center gap-6">
-                      <div className="w-20 h-14 rounded-lg bg-black/50 border border-white/10 overflow-hidden relative hidden sm:block">
-                        {project.thumbnail && (
-                          <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
+            <div className="flex flex-col gap-4">
+              {loading ? (
+                <p className="text-[13px] text-slate-500">Loading projects...</p>
+              ) : projects.length === 0 ? (
+                <p className="text-[13px] text-slate-500">No projects found. Create your first one!</p>
+              ) : (
+                projects.slice(0, 5).map(project => (
+                  <Link href={`/admin/projects/${project.id}/edit`} key={project.id} className="flex items-center justify-between group p-3 -mx-3 rounded-lg hover:bg-white/[0.02] transition-colors">
+                    <div className="flex items-center gap-4">
+                      <div className="w-[42px] h-[42px] rounded-lg bg-black/50 overflow-hidden border border-white/5 relative shrink-0">
+                        {project.thumbnail ? (
+                          <img src={project.thumbnail} className="object-cover w-full h-full" alt="" />
+                        ) : (
+                          <div className="w-full h-full bg-[#050810] flex items-center justify-center">
+                            <Folder className="w-5 h-5 text-slate-600" />
+                          </div>
                         )}
                       </div>
                       <div>
-                        <div className="flex items-center gap-3">
-                          <h3 className="text-lg font-medium text-white">{project.title}</h3>
-                          {project.status === 'published' ? (
-                            <span className="px-2 py-0.5 rounded text-[10px] uppercase tracking-wider font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                              Published
-                            </span>
-                          ) : (
-                            <span className="px-2 py-0.5 rounded text-[10px] uppercase tracking-wider font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                              Draft
-                            </span>
-                          )}
-                          {project.featured && (
-                            <span className="px-2 py-0.5 rounded text-[10px] uppercase tracking-wider font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                              Featured
-                            </span>
-                          )}
+                        <h4 className="text-[13px] font-semibold text-slate-200 group-hover:text-blue-400 transition-colors tracking-wide">{project.title}</h4>
+                        <div className="flex items-center gap-2 mt-1 text-[11px] text-slate-500">
+                          <Clock className="w-3 h-3" />
+                          <span>Updated {new Date(project.updatedAt || '').toLocaleDateString()}</span>
                         </div>
-                        <p className="text-sm text-white/50 mt-1 flex items-center gap-2">
-                          <span>{project.category}</span>
-                          <span>•</span>
-                          <span>{new Date(project.updatedAt || '').toLocaleDateString()}</span>
-                        </p>
                       </div>
                     </div>
-                    
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      {project.status === 'published' && (
-                        <Link href={`/projects/${project.slug}`} target="_blank" className="p-2 hover:bg-white/10 rounded-lg text-white/60 hover:text-white transition-colors" title="View Public">
-                          <Eye className="w-4 h-4" />
-                        </Link>
-                      )}
-                      <Link href={`/admin/projects/${project.id}/edit`} className="p-2 hover:bg-blue-500/10 hover:text-blue-400 rounded-lg text-white/60 transition-colors" title="Edit">
-                        <Edit3 className="w-4 h-4" />
-                      </Link>
-                      <button onClick={() => confirmDelete(project)} className="p-2 hover:bg-red-500/10 hover:text-red-400 rounded-lg text-white/60 transition-colors" title="Delete">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                    <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider shrink-0 ${
+                      project.status === 'published' ? 'text-emerald-400 bg-emerald-500/10' : 'text-amber-400 bg-amber-500/10'
+                    }`}>
+                      {project.status}
+                    </span>
+                  </Link>
+                ))
+              )}
+            </div>
           </div>
-        </motion.div>
-      </main>
+        </div>
 
-      <ConfirmModal
-        isOpen={deleteModalOpen}
-        title="Delete Project"
-        message={`Are you sure you want to delete "${projectToDelete?.title}"? This action cannot be undone and will permanently remove all associated data.`}
-        loading={isDeleting}
-        onConfirm={handleDelete}
-        onCancel={() => setDeleteModalOpen(false)}
-      />
+        {/* Right Column: Deployment & Actions */}
+        <div className="space-y-6">
+          
+          {/* Deployment Status */}
+          <div className="bg-[#090f1b] border border-white/[0.04] rounded-[14px] p-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-[50px] rounded-full pointer-events-none" />
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-[14px] font-semibold text-white">Production Deployment</h3>
+              <span className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                READY
+              </span>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5"><GitCommit className="w-4 h-4 text-slate-400" /></div>
+                <div>
+                  <p className="text-[13px] font-medium text-slate-200">Added visual editor configs</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">3 hours ago by Vishnu</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3 text-[12px] text-slate-400">
+                <Cloud className="w-4 h-4" />
+                <span>Vercel • main branch</span>
+              </div>
+              
+              <div className="pt-2 border-t border-white/[0.04]">
+                <button className="w-full py-2.5 bg-white text-black text-[13px] font-semibold rounded-lg hover:bg-slate-200 transition-colors">
+                  Trigger Build
+                </button>
+              </div>
+            </div>
+          </div>
 
+          {/* Quick Actions */}
+          <div className="bg-[#090f1b] border border-white/[0.04] rounded-[14px] p-6">
+            <h3 className="text-[14px] font-semibold text-white mb-6">Quick Actions</h3>
+            <div className="space-y-2">
+              {[
+                { label: 'Create Project', href: '/admin/projects/create', icon: Plus },
+                { label: 'Upload Assets', href: '/admin/media', icon: HardDrive },
+                { label: 'Theme Settings', href: '/admin/themes', icon: Settings },
+              ].map((action, i) => (
+                <Link key={i} href={action.href} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white/[0.03] text-slate-400 hover:text-white transition-colors group">
+                  <div className="w-8 h-8 rounded border border-white/[0.04] flex items-center justify-center bg-[#050810] group-hover:bg-white/[0.04] transition-colors">
+                    <action.icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-[13px] font-medium">{action.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 }

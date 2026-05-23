@@ -87,6 +87,11 @@
   }
 
   [data-theme="green"] {
+    --bg-base: #020c06;
+    --bg-elevated: #05160b;
+    --bg-card: #081f11;
+    --bg-overlay: rgba(2, 12, 6, 0.85);
+    
     --border-base: rgba(34, 197, 94, 0.12);
     --border-glow: rgba(34, 197, 94, 0.4);
     --accent-400: #4ade80;
@@ -104,6 +109,11 @@
   }
 
   [data-theme="purple"] {
+    --bg-base: #0a0412;
+    --bg-elevated: #11081f;
+    --bg-card: #180b2b;
+    --bg-overlay: rgba(10, 4, 18, 0.85);
+
     --border-base: rgba(168, 85, 247, 0.12);
     --border-glow: rgba(168, 85, 247, 0.4);
     --accent-400: #c084fc;
@@ -121,6 +131,11 @@
   }
 
   [data-theme="amber"] {
+    --bg-base: #100802;
+    --bg-elevated: #1a0d05;
+    --bg-card: #261408;
+    --bg-overlay: rgba(16, 8, 2, 0.85);
+
     --border-base: rgba(245, 158, 11, 0.12);
     --border-glow: rgba(245, 158, 11, 0.4);
     --accent-400: #fbbf24;
@@ -138,6 +153,11 @@
   }
 
   [data-theme="red"] {
+    --bg-base: #110303;
+    --bg-elevated: #1a0808;
+    --bg-card: #260d0d;
+    --bg-overlay: rgba(17, 3, 3, 0.85);
+
     --border-base: rgba(239, 68, 68, 0.12);
     --border-glow: rgba(239, 68, 68, 0.4);
     --accent-400: #f87171;
@@ -155,6 +175,11 @@
   }
 
   [data-theme="cyan"] {
+    --bg-base: #020a11;
+    --bg-elevated: #051421;
+    --bg-card: #081e33;
+    --bg-overlay: rgba(2, 10, 17, 0.85);
+
     --border-base: rgba(6, 182, 212, 0.12);
     --border-glow: rgba(6, 182, 212, 0.4);
     --accent-400: #22d3ee;

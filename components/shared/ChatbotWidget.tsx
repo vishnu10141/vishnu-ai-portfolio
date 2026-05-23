@@ -64,12 +64,12 @@ export function ChatbotWidget() {
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_30px_var(--accent-glow-strong)] z-40 bg-gradient-to-br from-[var(--color-blue-500)] to-[var(--color-cyan-500)] text-white ${isOpen ? 'hidden' : 'flex'}`}
+        className={`fixed bottom-6 right-6 w-10 h-10 rounded-full flex items-center justify-center z-40 bg-white/5 backdrop-blur-md border border-white/10 text-white/50 hover:text-emerald-400 hover:bg-white/10 transition-all ${isOpen ? 'hidden' : 'flex'}`}
       >
-        <Bot className="w-6 h-6" />
+        <Bot className="w-5 h-5" />
       </motion.button>
 
       {/* Chat Window */}

@@ -13,6 +13,7 @@ export interface Project {
   librariesUsed?: string[];
   technologies?: string[];
   sampleCode?: string; // Markdown or raw code
+  order?: number;
   githubUrl?: string;
   demoUrl?: string;
   images?: string[]; // Array of Firebase Storage URLs

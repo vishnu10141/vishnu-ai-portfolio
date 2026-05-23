@@ -83,17 +83,11 @@ const strengths = [
   { name: 'Team Player', icon: Users2 },
 ];
 
-const stats = [
-  { icon: Trophy, value: '2+', label: 'Years of Research\nExperience' },
-  { icon: Database, value: '150K+', label: 'Data Samples\nProcessed' },
-  { icon: LineChart, value: '8+', label: 'ML/NLP Projects\nBuilt' },
-  { icon: Users, value: '3', label: 'Organizations\nWorked With' },
-  { icon: Code, value: '10+', label: 'Technologies &\nFrameworks' },
-];
+
 
 export default function ExperienceTimeline() {
   return (
-    <section id="experience" className="w-full pt-20 pb-20 relative z-20 bg-[#020611]">
+    <section id="experience" className="w-full pt-20 pb-20 relative z-20 bg-[var(--color-bg-base)] transition-colors duration-300">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="flex flex-col xl:flex-row gap-12 lg:gap-16">
@@ -239,32 +233,7 @@ export default function ExperienceTimeline() {
 
         </div>
 
-        {/* Stats Footer Strip */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-12 bg-[#040812] border border-white/5 rounded-[32px] p-6 lg:p-8 flex flex-col md:flex-row flex-wrap items-center justify-between gap-8"
-        >
-          {stats.map((stat, idx) => {
-            const Icon = stat.icon;
-            return (
-              <div key={idx} className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl border border-green-500/20 bg-green-500/5 flex items-center justify-center shrink-0">
-                  <Icon className="w-5 h-5 text-green-500" />
-                </div>
-                <div>
-                  <h4 className="text-white text-xl font-bold mb-0.5">{stat.value}</h4>
-                  <p className="text-slate-500 text-[11px] font-medium leading-tight whitespace-pre-line">{stat.label}</p>
-                </div>
-              </div>
-            );
-          })}
-          
-          <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform shadow-[0_0_20px_rgba(34,197,94,0.3)] ml-auto md:ml-0 mt-4 md:mt-0 shrink-0">
-            <ArrowRight className="w-6 h-6 text-[#020611]" />
-          </div>
-        </motion.div>
+
 
       </div>
     </section>
