@@ -1,80 +1,11 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ShieldCheck, Building2, GraduationCap, Trophy, Database, LineChart, Users, Code, ArrowRight, Puzzle, Cpu, Zap, Users2 } from 'lucide-react';
-
-const experiences = [
-  {
-    id: 'drdo',
-    date: 'May 2025 - Jul 2025',
-    title: 'Machine Learning Research Intern',
-    org: 'DRDO',
-    isActive: true,
-    icon: ShieldCheck,
-    image: '/images/radar_ui.png',
-    focusTitle: 'Research Focus',
-    focusText: 'Radar signal processing, anomaly detection, and machine learning for defense applications.',
-    contributionsTitle: 'Key Contributions',
-    contributions: [
-      'Built radar signal segmentation pipeline (50K+ samples) using XGBoost, RF, SVM → 98% accuracy',
-      'Designed anomaly detection system - reduced false positives by 25% in noisy environments',
-      'Optimized inference by 30% using PCA and efficient NumPy/Pandas pipelines'
-    ],
-    tech: ['Python', 'XGBoost', 'SVM', 'Random Forest', 'Pandas', 'NumPy', 'Scikit-learn'],
-    logoName: 'DRDO',
-    logoInner: (
-      <div className="w-10 h-10 rounded-full border-2 border-blue-800 flex items-center justify-center">
-        <span className="text-[6px] font-bold text-blue-800 text-center leading-tight">DEFENSE<br/>R&D</span>
-      </div>
-    )
-  },
-  {
-    id: 'iiit',
-    date: 'Jan 2025 - Apr 2025',
-    title: 'NLP Research Intern',
-    org: 'IIIT Hyderabad',
-    isActive: false,
-    icon: Building2,
-    image: '/images/nlp_dashboard.png',
-    focusTitle: 'Research Focus',
-    focusText: 'Natural language processing, dataset preparation, and multilingual NLP models.',
-    contributionsTitle: 'Key Contributions',
-    contributions: [
-      'Built 100K+ annotated Telugu dataset → improved NLP performance by 12%',
-      'Reduced dataset noise by 40% using automated data pipelines and validation',
-      'Collaborated with research team on multilingual NLP models'
-    ],
-    tech: ['Python', 'Transformers', 'PyTorch', 'Pandas', 'Dataset', 'NLTK', 'Scikit-learn'],
-    logoName: 'IIIT HYDERABAD',
-    logoInner: (
-      <div className="text-blue-800 font-bold text-[14px] tracking-widest">IIIT</div>
-    )
-  },
-  {
-    id: 'matrusri',
-    date: '2022 - 2026',
-    title: 'B.E. Computer Science & Engineering',
-    org: 'Matrusri Engineering College',
-    isActive: false,
-    icon: GraduationCap,
-    image: '/images/data_cube.png',
-    focusTitle: 'Coursework',
-    focusText: 'Data Structures, Algorithms, DBMS, Computer Networks, Operating Systems, Machine Learning, Computer Vision',
-    contributionsTitle: 'Key Highlights',
-    contributions: [
-      'CGPA: 7.4 / 10',
-      'Active in coding competitions and hackathons',
-      'Built multiple ML & CV projects',
-      'Strong foundation in software engineering and problem solving'
-    ],
-    tech: ['C / C++', 'Python', 'Java', 'MySQL', 'OpenCV', 'Git', 'Linux'],
-    logoName: 'MATRUSRI',
-    logoInner: (
-      <div className="text-blue-800 font-serif font-bold text-[20px] italic">M</div>
-    )
-  }
-];
+import { ShieldCheck, Building2, Puzzle, Cpu, Zap, Users2, GraduationCap, ArrowUpRight, MoreVertical } from 'lucide-react';
+import { subscribeToExperiences } from '@/lib/firebase/firestore';
+import { Experience } from '@/lib/types';
 
 const strengths = [
   { name: 'Problem Solver', icon: Puzzle },
@@ -83,63 +14,120 @@ const strengths = [
   { name: 'Team Player', icon: Users2 },
 ];
 
-
-
 export default function ExperienceTimeline() {
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToExperiences((data) => {
+      setExperiences(data.sort((a, b) => a.order - b.order));
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) return null;
+
   return (
-    <section id="experience" className="w-full pt-20 pb-20 relative z-20 bg-[var(--color-bg-base)] transition-colors duration-300">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="w-full pt-20 pb-0 relative z-20 bg-transparent">
+      <div className="container-width max-w-[1400px]">
         
-        <div className="flex flex-col xl:flex-row gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16">
           
           {/* Left Column (Sticky Sidebar) */}
-          <div className="w-full xl:w-[320px] shrink-0 flex flex-col">
+          <div className="w-full lg:w-[360px] shrink-0 flex flex-col">
             <div className="sticky top-32">
               
               {/* Header */}
-              <div className="mb-12">
-                <h2 className="text-[40px] leading-[1.1] font-bold tracking-tight mb-6">
+              <div className="mb-10">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-500">
+                    MY JOURNEY
+                  </span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+                </div>
+                <h2 className="text-[40px] lg:text-[44px] leading-[1.1] font-bold tracking-tight mb-4 relative">
                   <span className="text-white block">My</span>
                   <span className="text-white block">Professional</span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 block">Journey</span>
+                  <span className="text-blue-500 block">Journey</span>
+                  
+                  {/* Decorative faint glow mimicking the cube in the image */}
+                  <div className="absolute top-0 right-10 w-24 h-24 bg-blue-500/20 blur-[50px] rounded-full pointer-events-none" />
                 </h2>
-                <p className="text-slate-400 text-[14px] leading-relaxed">
+                <p className="text-slate-400 text-[14px] leading-relaxed max-w-[300px]">
                   A timeline of my academic background, research internships, and the skills I've developed along the way.
                 </p>
               </div>
 
               {/* Timeline Navigation */}
-              <div className="relative pl-6 border-l border-white/5 space-y-12 mb-12 hidden md:block">
+              <div className="relative pl-7 space-y-4 mb-10 hidden md:block">
+                {/* Vertical Line */}
+                <div className="absolute left-[8px] top-6 bottom-6 w-[2px] bg-blue-500/20" />
+
                 {experiences.map((exp, idx) => {
-                  const Icon = exp.icon;
+                  const isActive = idx === 0;
+                  const isEducation = exp.role.toLowerCase().includes('student') || exp.role.toLowerCase().includes('b.e.') || exp.role.toLowerCase().includes('degree');
+                  const Icon = isEducation ? GraduationCap : (isActive ? ShieldCheck : Building2);
+                  
                   return (
-                    <div key={exp.id} className="relative">
-                      {/* Node Dot */}
-                      <div className={`absolute -left-[30px] top-6 w-3 h-3 rounded-full border-2 ${exp.isActive ? 'border-green-500 bg-green-500' : 'border-slate-700 bg-[#020611]'} z-10`} />
+                    <div key={exp.id} className="relative group cursor-pointer">
                       
-                      <div className={`p-5 rounded-2xl border ${exp.isActive ? 'border-green-500/30 bg-green-500/5' : 'border-transparent'} transition-colors`}>
-                        <div className="flex items-center gap-3 mb-3">
-                          <Icon className={`w-5 h-5 ${exp.isActive ? 'text-green-500' : 'text-slate-500'}`} />
-                          <span className={`text-[12px] font-bold ${exp.isActive ? 'text-green-500' : 'text-slate-500'}`}>{exp.date}</span>
-                        </div>
-                        <h4 className={`text-[14px] font-bold ${exp.isActive ? 'text-white' : 'text-slate-400'} mb-1`}>{exp.title}</h4>
-                        <p className={`text-[12px] ${exp.isActive ? 'text-green-400' : 'text-slate-500'}`}>{exp.org}</p>
+                      {/* Node Dot */}
+                      <div className={`absolute -left-[27px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] rounded-full flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-blue-500/20' : 'bg-transparent'} z-10`}>
+                        <div className={`w-2 h-2 rounded-full ${isActive ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'bg-[var(--color-bg-base)] border border-blue-500/30 group-hover:border-blue-500/60'}`} />
                       </div>
+                      
+                      {/* Nav Card */}
+                      <div className={`p-4 rounded-[20px] border transition-colors duration-300 flex items-center gap-4 ${
+                        isActive 
+                          ? 'border-blue-500/50 bg-gradient-to-r from-blue-500/20 to-transparent' 
+                          : 'border-transparent hover:bg-white/[0.02]'
+                      }`}>
+                        
+                        {/* Icon Box */}
+                        <div className={`w-12 h-12 shrink-0 rounded-xl flex items-center justify-center ${
+                          isActive 
+                            ? 'bg-blue-500/20 text-blue-400 border border-blue-500/50' 
+                            : 'border border-white/5 bg-[var(--color-bg-elevated)]/30 text-slate-500 group-hover:border-white/10 group-hover:text-slate-400'
+                        }`}>
+                          <Icon className="w-5 h-5" />
+                        </div>
+
+                        {/* Text Content */}
+                        <div className="flex flex-col">
+                          <span className={`text-[11px] font-bold mb-0.5 ${isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-400'}`}>
+                            {exp.duration}
+                          </span>
+                          <h4 className={`text-[13px] font-bold leading-tight mb-0.5 ${isActive ? 'text-white' : 'text-slate-300 group-hover:text-white'}`}>
+                            {exp.role}
+                          </h4>
+                          <span className={`text-[11px] font-medium ${isActive ? 'text-blue-500' : 'text-slate-500 group-hover:text-slate-400'}`}>
+                            {exp.company}
+                          </span>
+                        </div>
+                      </div>
+
                     </div>
                   );
                 })}
               </div>
 
               {/* Key Strengths */}
-              <div className="bg-[#040812] border border-white/5 rounded-2xl p-6">
-                <h4 className="text-[14px] font-bold text-white mb-5">Key Strengths</h4>
+              <div className="mt-2">
+                <h4 className="text-[11px] font-bold text-white mb-5 uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+                  KEY STRENGTHS
+                </h4>
                 <div className="grid grid-cols-2 gap-3">
                   {strengths.map(strength => {
                     const SIcon = strength.icon;
                     return (
-                      <div key={strength.name} className="flex items-center gap-2 px-3 py-2.5 bg-green-500/5 border border-green-500/10 rounded-lg text-green-500 text-[11px] font-semibold whitespace-nowrap">
-                        <SIcon className="w-3.5 h-3.5" />
-                        {strength.name}
+                      <div key={strength.name} className="flex items-center justify-between px-4 py-3 bg-[var(--color-bg-elevated)]/30 border border-blue-500/20 rounded-[14px] text-white text-[12px] font-bold hover:bg-blue-500/10 hover:border-blue-500/40 transition-colors cursor-default group">
+                        <div className="flex items-center gap-3">
+                          <SIcon className="w-4 h-4 text-blue-500" />
+                          {strength.name}
+                        </div>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-blue-500 opacity-50 group-hover:opacity-100 transition-opacity" />
                       </div>
                     );
                   })}
@@ -150,90 +138,76 @@ export default function ExperienceTimeline() {
           </div>
 
           {/* Right Column (Cards) */}
-          <div className="flex-1 flex flex-col gap-6">
-            {experiences.map((exp, idx) => (
+          <div className="flex-1 flex flex-col gap-6 lg:max-w-[760px]">
+            {experiences.map((exp, idx) => {
+              const fallbackImage = idx === 0 ? '/images/radar_ui.png' : (idx === 1 ? '/images/nlp_dashboard.png' : '/images/data_cube.png');
+              const isActive = idx === 0;
+
+              return (
               <motion.div 
                 key={exp.id}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-[#040812] border border-white/5 rounded-[32px] p-6 lg:p-8 flex flex-col lg:flex-row gap-8 relative overflow-hidden group hover:border-green-500/20 transition-colors"
+                className={`bg-[var(--color-bg-elevated)]/40 backdrop-blur-md border ${isActive ? 'border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.1)]' : 'border-white/[0.04]'} rounded-[24px] p-5 flex flex-col md:flex-row gap-6 relative hover:border-blue-500/30 hover:bg-[var(--color-bg-elevated)]/60 transition-colors duration-300`}
               >
                 {/* Left Image Column */}
-                <div className="w-full lg:w-[280px] shrink-0 h-[220px] lg:h-auto relative rounded-2xl overflow-hidden bg-black flex items-center justify-center border border-white/5">
-                  {/* Subtle Glow */}
-                  <div className="absolute inset-0 bg-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="w-full md:w-[280px] shrink-0 h-[200px] relative rounded-[16px] overflow-hidden bg-black/50 border border-white/[0.05]">
                   <Image 
-                    src={exp.image}
-                    alt={exp.org}
+                    src={exp.logo || fallbackImage}
+                    alt={exp.company}
                     fill
-                    className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-700"
                   />
+                  {/* Subtle inner shadow for depth */}
+                  <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none" />
                 </div>
 
                 {/* Right Content Column */}
-                <div className="flex-1 flex flex-col justify-between py-2">
+                <div className="flex-1 flex flex-col justify-start py-1">
                   
+                  {/* Top Row: Date Pill & Options Icon */}
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="inline-block px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-[11px] font-bold tracking-wide">
+                      {exp.duration}
+                    </span>
+                    <button className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-80 hover:opacity-100 transition-opacity">
+                      <MoreVertical className="w-4 h-4" />
+                    </button>
+                  </div>
+
                   {/* Header */}
-                  <div className="mb-8">
-                    <span className="text-green-500 text-[13px] font-bold block mb-2">{exp.date}</span>
-                    <h3 className="text-2xl font-bold text-white mb-1">{exp.title}</h3>
-                    <span className="text-green-400 text-[14px] font-medium">{exp.org}</span>
-                  </div>
+                  <h3 className="text-[22px] font-bold text-white leading-tight mb-1 pr-4">{exp.role}</h3>
+                  <span className="text-blue-500 text-[15px] font-medium block mb-4">{exp.company}</span>
+                  
+                  {/* Contributions */}
+                  <h4 className="text-white text-[11px] font-bold tracking-[0.1em] mb-2 uppercase">Key Contributions</h4>
+                  <ul className="space-y-1.5 mb-5">
+                    {exp.contributions && exp.contributions.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0 mt-2 shadow-[0_0_6px_rgba(59,130,246,0.8)]" />
+                        <span className="text-slate-300 text-[13px] leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                  {/* Body grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-8 mb-8">
-                    
-                    {/* Focus */}
-                    <div>
-                      <h4 className="text-white text-[13px] font-bold mb-3">{exp.focusTitle}</h4>
-                      <p className="text-slate-400 text-[12px] leading-relaxed pr-4">
-                        {exp.focusText}
-                      </p>
-                    </div>
-
-                    {/* Contributions */}
-                    <div>
-                      <h4 className="text-white text-[13px] font-bold mb-3">{exp.contributionsTitle}</h4>
-                      <ul className="space-y-2.5">
-                        {exp.contributions.map((item, i) => (
-                          <li key={i} className="flex items-start gap-2.5">
-                            <span className="w-1 h-1 rounded-full bg-green-500 shrink-0 mt-1.5" />
-                            <span className="text-slate-400 text-[12px] leading-relaxed">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Footer tech & logo */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mt-auto border-t border-white/5 pt-6">
-                    <div className="flex-1">
-                      <h4 className="text-white text-[13px] font-bold mb-3">Tech Stack</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.tech.map(t => (
-                          <span key={t} className="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-[10px] font-medium tracking-wide">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="shrink-0 flex flex-col items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-xl p-2 pb-1 relative">
-                      {exp.logoInner}
-                      <span className="text-blue-800 font-bold text-[8px] tracking-wider mt-auto">{exp.logoName}</span>
-                    </div>
+                  {/* Tech Stack */}
+                  <h4 className="text-white text-[11px] font-bold tracking-[0.1em] mb-2 uppercase">Tech Stack</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.stack && exp.stack.map(t => (
+                      <span key={t} className="px-3 py-1 rounded-[6px] border border-white/10 bg-white/[0.03] text-slate-300 text-[11px] font-semibold">
+                        {t}
+                      </span>
+                    ))}
                   </div>
 
                 </div>
               </motion.div>
-            ))}
+            )})}
           </div>
 
         </div>
-
-
 
       </div>
     </section>

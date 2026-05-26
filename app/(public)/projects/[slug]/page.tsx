@@ -1,22 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  ArrowLeft, BookOpen, Calendar, Tag,
-  Target, BarChart2, Layers, Code2, ImageIcon, ExternalLink, Activity
-} from 'lucide-react';
+import { ArrowLeft, ExternalLink, Calendar, Code2, Activity } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/SocialIcons';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
 import { Project } from '@/lib/types';
 import { MarkdownRenderer } from '@/components/shared/MarkdownRenderer';
 import Image from 'next/image';
-import BrainTumorProject from '@/components/projects/BrainTumorProject';
-import RadarProject from '@/components/projects/RadarProject';
 
 async function getProject(slug: string): Promise<Project | null> {
   try {
-    const q = query(collection(db, 'projects'), where('slug', '==', slug), where('status', '==', 'published'));
+    const q = query(collection(db, 'projects'), where('slug', '==', slug));
     const snapshot = await getDocs(q);
     if (snapshot.empty) return null;
     return { id: snapshot.docs[0].id, ...snapshot.docs[0].data() } as Project;
@@ -38,9 +33,9 @@ export async function generateMetadata({
 
   return {
     title: project.title,
-    description: project.shortDescription,
+    description: project.description,
     openGraph: {
-      images: [project.thumbnail || ''],
+      images: [project.media?.[0] || ''],
     }
   };
 }
@@ -57,82 +52,62 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  // Use bespoke layouts for specific featured projects
-  if (slug === 'brain-tumor-segmentation') {
-    return <BrainTumorProject project={project} />;
-  }
-  
-  if (slug === 'radar-anomaly-detection') {
-    return <RadarProject project={project} />;
-  }
-
   return (
-    <div className="min-h-screen bg-bg-base">
+    <div className="min-h-screen bg-bg-base text-slate-200">
       {/* ── Hero banner ── */}
-      <div className="relative pt-24 pb-12 overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-25" />
+      <div className="relative pt-32 pb-16 overflow-hidden border-b border-white/5 bg-[#0a101d]">
+        <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
         <div
-          className="absolute inset-0"
-          style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(59,130,246,0.08) 0%, transparent 55%)' }}
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 70%)' }}
         />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
 
-        <div className="relative container-width">
+        <div className="relative max-w-5xl mx-auto px-6">
           {/* Back link */}
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-blue-400 transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-blue-400 transition-colors mb-8 group"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             All Projects
           </Link>
 
-          <div className="flex flex-wrap items-start gap-4 mb-5">
-            <span className="tag-blue">{project.category}</span>
-            <div className="flex items-center gap-1.5 text-xs text-text-muted">
-              <Calendar className="w-3.5 h-3.5" />
-              {new Date(project.completionDate || '').toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
+          <div className="flex flex-wrap items-center gap-4 mb-6">
+            <span className="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-bold uppercase tracking-wider">
+              {project.category}
+            </span>
+            <div className="flex items-center gap-1.5 text-sm text-slate-400">
+              <Calendar className="w-4 h-4" />
+              {new Date(project.createdAt).toLocaleDateString()}
             </div>
-            {project.researchType && (
-              <div className="flex items-center gap-1.5 text-xs text-text-muted">
-                <Activity className="w-3.5 h-3.5" />
-                {project.researchType}
-              </div>
+            {project.featured && (
+              <span className="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-bold uppercase tracking-wider">
+                Featured
+              </span>
             )}
           </div>
 
-          <h1
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 max-w-4xl"
-            style={{ fontFamily: 'var(--font-space-grotesk)' }}
-          >
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 text-white tracking-tight leading-tight">
             {project.title}
           </h1>
-          <p className="text-lg text-text-secondary max-w-2xl mb-6">{project.shortDescription}</p>
+          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mb-8 leading-relaxed">
+            {project.description}
+          </p>
 
           {/* Action links */}
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-4">
             {project.githubUrl && (
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                className="btn-primary text-sm py-2.5 px-5"
-                id="project-github-link"
+                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-semibold py-3 px-6 rounded-xl transition-all"
               >
-                <GithubIcon className="w-4 h-4" /> View Code
+                <GithubIcon className="w-5 h-5" /> View Source
               </a>
             )}
-            {project.pdfUrl && (
-              <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer"
-                className="btn-ghost text-sm py-2.5 px-5"
-                id="project-paper-link"
+            {project.liveUrl && (
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]"
               >
-                <BookOpen className="w-4 h-4" /> Read Paper
-                <ExternalLink className="w-3 h-3 opacity-60" />
-              </a>
-            )}
-            {project.demoUrl && (
-              <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-                className="btn-ghost text-sm py-2.5 px-5"
-              >
-                <ExternalLink className="w-4 h-4" /> Live Demo
+                <ExternalLink className="w-5 h-5" /> Live Project
               </a>
             )}
           </div>
@@ -140,61 +115,28 @@ export default async function ProjectDetailPage({
       </div>
 
       {/* ── Main content ── */}
-      <div className="container-width py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-
+      <div className="max-w-5xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12">
+          
           {/* Left: Main content column */}
-          <div className="lg:col-span-2 space-y-8">
-
-            {/* Overview */}
-            {project.detailedOverview && (
-              <section className="glass rounded-2xl p-7 border border-[rgba(59,130,246,0.1)]">
-                <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  <span className="w-1.5 h-5 rounded-full bg-gradient-to-b from-blue-400 to-cyan-400" />
-                  Technical Overview
-                </h2>
-                <MarkdownRenderer content={project.detailedOverview} />
+          <div className="space-y-12">
+            
+            {/* Overview / Long Description */}
+            {project.longDescription && (
+              <section className="prose prose-invert prose-blue max-w-none prose-headings:font-display prose-headings:tracking-tight">
+                <MarkdownRenderer content={project.longDescription} />
               </section>
             )}
 
-            {/* Outcomes */}
-            {project.outcomes && (
-              <section className="glass rounded-2xl p-7 border border-[rgba(59,130,246,0.1)]">
-                <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  <BarChart2 className="w-4 h-4 text-cyan-400" />
-                  Outcomes & Results
-                </h2>
-                <MarkdownRenderer content={project.outcomes} />
-              </section>
-            )}
-
-            {/* Sample Code */}
-            {project.sampleCode && (
-              <section className="glass rounded-2xl p-7 border border-[rgba(59,130,246,0.1)]">
-                <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  <Code2 className="w-4 h-4 text-cyan-400" />
-                  Sample Implementation
-                </h2>
-                <MarkdownRenderer content={project.sampleCode} />
-              </section>
-            )}
-
-            {/* Image gallery */}
-            {project.images && project.images.length > 0 && (
-              <section className="glass rounded-2xl p-7 border border-[rgba(59,130,246,0.1)]">
-                <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  <ImageIcon className="w-4 h-4 text-violet-400" />
-                  Gallery
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {project.images.map((img, i) => (
-                    <a key={i} href={img} target="_blank" rel="noopener noreferrer" className="relative aspect-video rounded-xl overflow-hidden border border-[rgba(59,130,246,0.1)] group">
-                      <Image src={img} alt={`${project.title} gallery image ${i + 1}`} fill className="object-cover group-hover:scale-105 transition-transform" />
-                    </a>
+            {/* Media Gallery */}
+            {project.media && project.media.length > 0 && (
+              <section className="space-y-4 pt-8 border-t border-white/5">
+                <h3 className="text-xl font-bold text-white mb-6">Gallery & Media</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {project.media.map((url, i) => (
+                    <div key={i} className="relative aspect-video rounded-xl overflow-hidden border border-white/10 group bg-black/50">
+                      <Image src={url} alt={`${project.title} media ${i + 1}`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
                   ))}
                 </div>
               </section>
@@ -202,48 +144,39 @@ export default async function ProjectDetailPage({
           </div>
 
           {/* Right: Sidebar */}
-          <div className="space-y-5">
-
-            {/* Applications */}
-            {project.applications && (
-              <div className="glass rounded-2xl p-5 border border-[rgba(59,130,246,0.1)]">
-                <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  <Target className="w-4 h-4 text-blue-400" /> Applications
-                </h3>
-                <MarkdownRenderer content={project.applications} />
+          <div className="space-y-8">
+            
+            {/* Tech Stack */}
+            <div className="bg-[#0a101d] border border-white/5 rounded-2xl p-6">
+              <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+                <Code2 className="w-4 h-4 text-emerald-400" /> Tech Stack
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {project.techStack?.map((tech) => (
+                  <span key={tech} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-slate-300">
+                    {tech}
+                  </span>
+                ))}
               </div>
-            )}
+            </div>
 
-            {/* Technologies */}
-            {project.technologies && project.technologies.length > 0 && (
-              <div className="glass rounded-2xl p-5 border border-[rgba(59,130,246,0.1)]">
-                <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  <Tag className="w-3.5 h-3.5 text-violet-400" /> Technologies
+            {/* Key Metrics / Achievements */}
+            {project.metrics && project.metrics.length > 0 && (
+              <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-6">
+                <h3 className="text-sm font-bold text-blue-400 mb-4 uppercase tracking-wider flex items-center gap-2">
+                  <Activity className="w-4 h-4" /> Key Metrics
                 </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tag) => (
-                    <span key={tag} className="tag-violet text-[11px]">{tag}</span>
+                <ul className="space-y-4">
+                  {project.metrics.map((metric, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                      <span className="text-sm text-slate-300 leading-relaxed">{metric}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             )}
-
-            {/* Libraries */}
-            {project.librariesUsed && project.librariesUsed.length > 0 && (
-              <div className="glass rounded-2xl p-5 border border-[rgba(59,130,246,0.1)]">
-                <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  <Layers className="w-4 h-4 text-cyan-400" /> Libraries Used
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.librariesUsed.map((lib) => (
-                    <span key={lib} className="tag-blue text-[11px]">{lib}</span>
-                  ))}
-                </div>
-              </div>
-            )}
+            
           </div>
         </div>
       </div>

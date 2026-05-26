@@ -26,7 +26,7 @@ export default function StatsAndTech() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="max-w-6xl mx-auto bg-[#020611] border border-white/5 rounded-2xl flex items-center p-2 pl-6 overflow-hidden relative"
+        className="max-w-6xl mx-auto bg-[var(--color-bg-elevated)] border border-white/5 rounded-2xl flex items-center p-2 pl-6 overflow-hidden relative"
       >
         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 shrink-0 mr-8">
           TECH STACK

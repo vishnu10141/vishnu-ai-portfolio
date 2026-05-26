@@ -1,29 +1,34 @@
-export type ProjectStatus = 'draft' | 'published';
-export type ResearchType = 'Applied' | 'Fundamental' | 'Review' | 'Engineering';
+export type VisualType = 'radar' | 'brain' | 'neural' | 'llm' | 'medical' | 'custom';
 
 export interface Project {
   id: string; // Firestore document ID
   title: string;
   slug: string;
-  category: string; // e.g., 'Medical AI', 'LLM', 'Computer Vision'
-  shortDescription: string;
-  detailedOverview?: string; // Markdown
-  outcomes?: string; // Markdown
-  applications?: string; // Markdown
-  librariesUsed?: string[];
-  technologies?: string[];
-  sampleCode?: string; // Markdown or raw code
-  order?: number;
+  category: string;
+  description: string; // Tagline / Short description
+  longDescription: string;
+  visualType: VisualType;
+  visualPrompt?: string; // For Custom Prompt Generated
+  techStack: string[];
   githubUrl?: string;
-  demoUrl?: string;
-  images?: string[]; // Array of Firebase Storage URLs
-  thumbnail?: string; // Main image URL
-  pdfUrl?: string;
-  published?: boolean; // Computed or duplicate of status
-  status?: ProjectStatus;
-  featured?: boolean;
-  researchType?: ResearchType;
-  completionDate?: string; // ISO Date String
-  createdAt?: string; // ISO Date String
-  updatedAt?: string; // ISO Date String
+  liveUrl?: string;
+  featured: boolean;
+  order: number;
+  media: string[]; // URLs for images, videos, GLTF
+  metrics: string[]; // Achievement bullets / metrics
+  status: 'draft' | 'published';
+  createdAt: string; // ISO string
+  updatedAt?: string; // ISO string
 }
+
+export interface Experience {
+  id: string; // Firestore document ID
+  company: string;
+  role: string;
+  duration: string;
+  contributions: string[]; // Smart content bullets
+  stack: string[];
+  logo: string;
+  order: number;
+}
+

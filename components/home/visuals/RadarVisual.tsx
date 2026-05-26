@@ -13,7 +13,7 @@ export default function RadarVisual() {
   if (!mounted) return null;
 
   return (
-    <div className="relative w-full h-full bg-[var(--color-bg-base)] overflow-hidden flex items-center justify-center font-mono transition-colors duration-300">
+    <div className="relative w-full h-full bg-transparent overflow-hidden rounded-[32px] flex items-center justify-center font-mono transition-colors duration-300">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,0,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
       

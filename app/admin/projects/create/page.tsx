@@ -1,9 +1,5 @@
-import { ProjectForm } from '@/components/admin/ProjectForm';
+import { CinematicBuilder } from '@/components/admin/ProjectBuilder/CinematicBuilder';
 
 export default function CreateProjectPage() {
-  return (
-    <div className="h-screen bg-black text-slate-200">
-      <ProjectForm />
-    </div>
-  );
+  return <CinematicBuilder />;
 }

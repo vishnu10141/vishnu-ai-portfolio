@@ -139,12 +139,12 @@ export default function ProjectsPage() {
                     <div className="cursor-grab active:cursor-grabbing text-slate-600 hover:text-slate-400 p-1">
                       <GripVertical className="w-4 h-4" />
                     </div>
-                    <div className="w-12 h-12 rounded-lg bg-black/50 border border-white/5 overflow-hidden shrink-0">
-                      {project.thumbnail ? <img src={project.thumbnail} className="w-full h-full object-cover" /> : <Folder className="w-5 h-5 text-slate-600 m-auto mt-3" />}
+                    <div className="w-12 h-12 rounded-lg bg-black/50 border border-white/5 overflow-hidden shrink-0 flex items-center justify-center">
+                      {project.media?.[0] ? <img src={project.media[0]} className="w-full h-full object-cover" /> : <Folder className="w-5 h-5 text-slate-600 m-auto" />}
                     </div>
                     <div>
                       <div className="text-[13px] font-semibold text-slate-200">{project.title}</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5 truncate max-w-[250px]">{project.shortDescription || project.slug}</div>
+                      <div className="text-[11px] text-slate-500 mt-0.5 truncate max-w-[250px]">{project.description || project.slug}</div>
                     </div>
                   </div>
                   
@@ -232,7 +232,7 @@ export default function ProjectsPage() {
               <textarea 
                 className="w-full bg-[#0a0d14] border border-white/[0.04] rounded-lg px-3 py-2 text-[13px] text-slate-300 resize-none outline-none focus:border-emerald-500/50" 
                 rows={4}
-                defaultValue={selectedProject.shortDescription}
+                defaultValue={selectedProject.description}
               />
             </div>
 
@@ -251,7 +251,7 @@ export default function ProjectsPage() {
                 <input 
                   type="text"
                   className="flex-1 bg-transparent text-[13px] text-slate-300 outline-none"
-                  defaultValue={selectedProject.githubUrl || selectedProject.demoUrl}
+                  defaultValue={selectedProject.githubUrl || selectedProject.liveUrl}
                 />
                 <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
               </div>

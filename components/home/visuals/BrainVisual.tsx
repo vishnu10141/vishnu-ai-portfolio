@@ -93,7 +93,7 @@ function TumorRegions() {
 
 export default function BrainVisual() {
   return (
-    <div className="relative w-full h-full bg-[var(--color-bg-base)] overflow-hidden rounded-3xl cursor-grab active:cursor-grabbing transition-colors duration-300">
+    <div className="relative w-full h-full bg-transparent overflow-hidden rounded-[32px] cursor-grab active:cursor-grabbing transition-colors duration-300">
       
       {/* 3D Canvas */}
       <div className="absolute inset-0">
@@ -112,26 +112,26 @@ export default function BrainVisual() {
       </div>
 
       {/* Overlay UI (Medical Scan Vibe) */}
-      <div className="absolute top-6 left-6 pointer-events-none">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <span className="text-[10px] text-white/80 font-mono tracking-widest">LIVE SCAN</span>
+      <div className="absolute top-8 left-8 pointer-events-none">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)] animate-pulse" />
+          <span className="text-[11px] text-white/80 font-mono font-bold tracking-[0.25em]">LIVE SCAN</span>
         </div>
         <p className="text-[12px] text-slate-400 font-mono">AXIAL / CORONAL / SAGITTAL</p>
       </div>
 
-      <div className="absolute bottom-6 right-6 pointer-events-none flex flex-col gap-2 font-mono text-[10px]">
+      <div className="absolute bottom-8 right-8 pointer-events-none flex flex-col gap-3 font-mono text-[11px]">
         <div className="flex items-center gap-3">
-          <span className="w-3 h-3 border border-cyan-500/50 bg-cyan-500/20" />
-          <span className="text-cyan-400">WT (Whole Tumor)</span>
+          <span className="w-3 h-3 border border-cyan-500/50 bg-cyan-500/20 rounded-sm" />
+          <span className="text-cyan-400 font-bold">WT (Whole Tumor)</span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="w-3 h-3 border border-orange-500/50 bg-orange-500/20" />
-          <span className="text-orange-400">TC (Tumor Core)</span>
+          <span className="w-3 h-3 border border-orange-500/50 bg-orange-500/20 rounded-sm" />
+          <span className="text-orange-400 font-bold">TC (Tumor Core)</span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="w-3 h-3 border border-red-500/50 bg-red-500/20" />
-          <span className="text-red-400">ET (Enhancing)</span>
+          <span className="w-3 h-3 border border-red-500/50 bg-red-500/20 rounded-sm" />
+          <span className="text-red-400 font-bold">ET (Enhancing)</span>
         </div>
       </div>
 

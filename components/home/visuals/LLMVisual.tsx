@@ -15,7 +15,7 @@ export default function LLMVisual() {
   if (!mounted) return null;
 
   return (
-    <div className="relative w-full h-full bg-[var(--color-bg-base)] overflow-hidden flex items-center justify-center transition-colors duration-300">
+    <div className="relative w-full h-full bg-transparent overflow-hidden rounded-[32px] flex items-center justify-center transition-colors duration-300">
       {/* Background Glows */}
       <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none" />

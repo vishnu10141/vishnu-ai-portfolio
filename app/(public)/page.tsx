@@ -1,11 +1,8 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/home/HeroSection';
-import StatsAndTech from '@/components/home/StatsAndTech';
 import EngineeringFocus from '@/components/home/EngineeringFocus';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
 import ExperienceTimeline from '@/components/home/ExperienceTimeline';
-import SkillsSection from '@/components/home/SkillsSection';
-import ContactSection from '@/components/home/ContactSection';
 
 export const metadata: Metadata = {
   title: 'Home | AI Engineer Portfolio',
@@ -20,8 +17,6 @@ export default function HomePage() {
       <EngineeringFocus />
       <FeaturedProjects />
       <ExperienceTimeline />
-      <SkillsSection />
-      <ContactSection />
     </>
   );
 }

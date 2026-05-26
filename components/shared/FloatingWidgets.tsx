@@ -15,7 +15,6 @@ export function FloatingWidgets() {
   return (
     <>
       <TerminalOverlay />
-      <ChatbotWidget />
     </>
   );
 }

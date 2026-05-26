@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Project } from '@/lib/types';
 import Link from 'next/link';
 import { 
-  Folder, Edit3, ImageIcon, Cloud, ExternalLink, Plus, HardDrive, CheckCircle2, Clock, GitCommit, Settings, PlayCircle
+  Folder, Edit3, ImageIcon, Cloud, ExternalLink, Plus, HardDrive, CheckCircle2, Clock, GitCommit, Settings, PlayCircle, LayoutTemplate
 } from 'lucide-react';
 
 export default function AdminDashboard() {
@@ -69,13 +69,9 @@ export default function AdminDashboard() {
                   <Link href={`/admin/projects/${project.id}/edit`} key={project.id} className="flex items-center justify-between group p-3 -mx-3 rounded-lg hover:bg-white/[0.02] transition-colors">
                     <div className="flex items-center gap-4">
                       <div className="w-[42px] h-[42px] rounded-lg bg-black/50 overflow-hidden border border-white/5 relative shrink-0">
-                        {project.thumbnail ? (
-                          <img src={project.thumbnail} className="object-cover w-full h-full" alt="" />
-                        ) : (
-                          <div className="w-full h-full bg-[#050810] flex items-center justify-center">
-                            <Folder className="w-5 h-5 text-slate-600" />
-                          </div>
-                        )}
+                        <div className="w-full h-full bg-[#050810] flex items-center justify-center">
+                          <LayoutTemplate className="w-5 h-5 text-slate-600" />
+                        </div>
                       </div>
                       <div>
                         <h4 className="text-[13px] font-semibold text-slate-200 group-hover:text-blue-400 transition-colors tracking-wide">{project.title}</h4>

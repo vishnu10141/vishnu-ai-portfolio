@@ -7,10 +7,7 @@ import { GithubIcon } from '@/components/ui/SocialIcons';
 import { cn } from '@/lib/utils';
 import { Project } from '@/lib/types';
 
-export interface ProjectCardData extends Project {
-  achievements?: string[];
-  thumbnail?: string;
-}
+export interface ProjectCardData extends Project {}
 
 const categoryColors: Record<string, { text: string; bg: string; border: string }> = {
   'Anomaly Detection':  { text: 'text-amber-300',   bg: 'bg-amber-500/[0.08]',  border: 'border-amber-500/20' },
@@ -22,14 +19,15 @@ const categoryColors: Record<string, { text: string; bg: string; border: string 
 
 export default function ProjectCard({ project, index = 0 }: { project: ProjectCardData; index?: number }) {
   const isEven = index % 2 === 0;
+  const thumbnail = project.media?.[0];
 
   return (
     <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 lg:gap-16 items-center group`}>
       
       {/* Visual / Image Side */}
       <div className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden bg-white/[0.02] relative">
-        {project.thumbnail ? (
-          <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+        {thumbnail ? (
+          <img src={thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/[0.02] to-transparent">
             <span className="text-white/10 text-4xl font-bold tracking-tighter">{project.title.substring(0, 2).toUpperCase()}</span>
@@ -56,16 +54,16 @@ export default function ProjectCard({ project, index = 0 }: { project: ProjectCa
 
           {/* Description */}
           <p className="text-[14px] text-slate-300 leading-relaxed max-w-lg">
-            {project.shortDescription}
+            {project.description}
           </p>
 
-          {/* Achievement Bullets */}
-          {project.achievements && project.achievements.length > 0 && (
+          {/* Achievement Bullets (Metrics) */}
+          {project.metrics && project.metrics.length > 0 && (
             <ul className="space-y-2 mt-1">
-              {project.achievements.map((achievement, idx) => (
+              {project.metrics.map((metric, idx) => (
                 <li key={idx} className="flex items-start gap-2.5 text-[13px] text-slate-400">
                   <CheckCircle2 className="w-4 h-4 text-slate-500 shrink-0" />
-                  <span className="leading-snug">{achievement}</span>
+                  <span className="leading-snug">{metric}</span>
                 </li>
               ))}
             </ul>
@@ -73,7 +71,7 @@ export default function ProjectCard({ project, index = 0 }: { project: ProjectCa
 
           {/* Tech Stack - Subtle Pills */}
           <div className="flex flex-wrap gap-2 mt-2">
-            {project.technologies?.slice(0, 4).map((tag) => (
+            {project.techStack?.slice(0, 4).map((tag) => (
               <span key={tag} className="text-[11px] font-medium text-slate-400 bg-white/[0.03] border border-white/[0.06] py-1 px-3 rounded-full">
                 {tag}
               </span>
@@ -90,9 +88,9 @@ export default function ProjectCard({ project, index = 0 }: { project: ProjectCa
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
             </Link>
             
-            {project.demoUrl && (
+            {project.liveUrl && (
               <a
-                href={project.demoUrl}
+                href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 text-[13px] font-medium text-slate-400 hover:text-white transition-colors group/link"

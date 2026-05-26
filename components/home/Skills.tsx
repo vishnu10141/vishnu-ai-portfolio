@@ -1,216 +1,226 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { MouseEvent } from 'react';
 import { 
-  Brain, Code2, Database, Box, Cloud, Terminal, 
-  Server, Zap, LineChart, Shield, Search, Puzzle, Camera, Download
+  Brain, Code2, Database, Cloud, Cpu, Puzzle, GitBranch, Star,
+  Terminal, Monitor, BarChart, Server, Activity, Shield
 } from 'lucide-react';
 
 const skillCategories = [
   {
-    col: 1,
-    categories: [
-      {
-        title: 'AI / ML',
-        icon: Brain,
-        skills: ['Machine Learning', 'Deep Learning', 'Computer Vision', 'Natural Language Processing', 'Reinforcement Learning', 'Anomaly Detection', 'Time Series Analysis', 'Model Evaluation & Tuning']
-      },
-      {
-        title: 'Dev Tools',
-        icon: Terminal,
-        skills: ['Git & GitHub', 'VS Code', 'Jupyter Notebook', 'Postman', 'Linux / Ubuntu', 'Conda / Virtualenv']
-      }
+    title: 'AI & ML SOLUTIONS',
+    icon: Brain,
+    themeColor: '#22c55e',
+    subtitle: 'Building intelligent models that learn, adapt, and deliver measurable results.',
+    skills: [
+      { name: 'TensorFlow', icon: Brain },
+      { name: 'PyTorch', icon: Activity },
+      { name: 'Scikit-learn', icon: Database },
+      { name: 'OpenCV', icon: Camera },
+      { name: 'MONAI', icon: Activity },
     ]
   },
   {
-    col: 2,
-    categories: [
-      {
-        title: 'Languages',
-        icon: Code2,
-        skills: ['Python', 'C / C++', 'JavaScript (ES6+)', 'TypeScript', 'SQL', 'Bash']
-      },
-      {
-        title: 'Databases',
-        icon: Database,
-        skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase']
-      }
+    title: 'FULL STACK DEVELOPMENT',
+    icon: Code2,
+    themeColor: '#3b82f6',
+    subtitle: 'End-to-end web applications using modern technologies and best practices.',
+    skills: [
+      { name: 'Next.js', icon: Monitor },
+      { name: 'React', icon: Code2 },
+      { name: 'Node.js', icon: Server },
+      { name: 'TypeScript', icon: Code2 },
+      { name: 'Tailwind CSS', icon: Monitor },
     ]
   },
   {
-    col: 3,
-    categories: [
-      {
-        title: 'Data & Analytics',
-        icon: Server,
-        skills: ['NumPy', 'Pandas', 'SciPy', 'Matplotlib', 'Seaborn', 'OpenCV', 'Scikit-learn', 'Statsmodels']
-      },
-      {
-        title: 'MLOps',
-        icon: Zap,
-        skills: ['DVC', 'Weights & Biases', 'MLflow', 'Airflow', 'Docker']
-      }
+    title: 'DATA SCIENCE',
+    icon: Database,
+    themeColor: '#a855f7',
+    subtitle: 'Turning raw data into insightful visualizations and actionable knowledge.',
+    skills: [
+      { name: 'Python', icon: Code2 },
+      { name: 'Pandas', icon: Database },
+      { name: 'NumPy', icon: Database },
+      { name: 'Matplotlib', icon: BarChart },
+      { name: 'Seaborn', icon: BarChart },
     ]
   },
   {
-    col: 4,
-    categories: [
-      {
-        title: 'Deep Learning Frameworks',
-        icon: Box,
-        skills: ['PyTorch', 'TensorFlow', 'Keras', 'Hugging Face Transformers', 'PyTorch Lightning', 'ONNX']
-      },
-      {
-        title: 'Visualization',
-        icon: LineChart,
-        skills: ['Matplotlib', 'Seaborn', 'Plotly', 'Streamlit', 'Power BI']
-      }
+    title: 'CLOUD & DEVOPS',
+    icon: Cloud,
+    themeColor: '#06b6d4',
+    subtitle: 'Deploying scalable solutions with CI/CD, Docker, and cloud platforms.',
+    skills: [
+      { name: 'Docker', icon: Server },
+      { name: 'Kubernetes', icon: Server },
+      { name: 'AWS', icon: Cloud },
+      { name: 'Firebase', icon: Cloud },
+      { name: 'GitHub Actions', icon: GitBranch },
     ]
   },
   {
-    col: 5,
-    categories: [
-      {
-        title: 'Cloud & Deployment',
-        icon: Cloud,
-        skills: ['AWS (S3, EC2, SageMaker)', 'Docker', 'Kubernetes', 'GitHub Actions', 'MLflow', 'Streamlit', 'FastAPI']
-      },
-      {
-        title: 'Other Skills',
-        icon: Shield,
-        skills: ['REST APIs', 'GraphQL', 'Agile Methodologies', 'Data Structures', 'Algorithms', 'Problem Solving']
-      }
+    title: 'RESEARCH & INNOVATION',
+    icon: Cpu,
+    themeColor: '#ec4899',
+    subtitle: 'Exploring new ideas and building solutions for real-world challenges.',
+    skills: [
+      { name: 'Deep Learning', icon: Brain },
+      { name: 'NLP', icon: Terminal },
+      { name: 'Computer Vision', icon: Monitor },
+      { name: 'Anomaly Detection', icon: Activity },
+      { name: 'Model Optimization', icon: Zap },
+    ]
+  },
+  {
+    title: 'PROBLEM SOLVING',
+    icon: Puzzle,
+    themeColor: '#f97316',
+    subtitle: 'Lover of challenges and building optimized solutions that scale.',
+    skills: [
+      { name: 'Data Structures', icon: Database },
+      { name: 'Algorithms', icon: Code2 },
+      { name: 'System Design', icon: Server },
+      { name: 'Debugging', icon: Shield },
+    ]
+  },
+  {
+    title: 'DATA / ML OPS',
+    icon: GitBranch,
+    themeColor: '#10b981',
+    subtitle: 'Building reliable ML pipelines and managing data workflows.',
+    skills: [
+      { name: 'MLflow', icon: GitBranch },
+      { name: 'DVC', icon: Database },
+      { name: 'Airflow', icon: Cloud },
+      { name: 'Weights & Biases', icon: BarChart },
+      { name: 'Jupyter', icon: Terminal },
+    ]
+  },
+  {
+    title: 'OTHER SKILLS',
+    icon: Star,
+    themeColor: '#6366f1',
+    subtitle: 'Additional tools and technologies I frequently use.',
+    skills: [
+      { name: 'REST APIs', icon: Cloud },
+      { name: 'Postman', icon: Activity },
+      { name: 'Streamlit', icon: Monitor },
+      { name: 'Linux', icon: Terminal },
     ]
   }
 ];
 
+// Re-using Lucide icons since we don't have SVGs for all logos
+import { Camera, Zap } from 'lucide-react';
+
+function SkillCard({ category, index }: { category: typeof skillCategories[0], index: number }) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const Icon = category.icon;
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      onMouseMove={handleMouseMove}
+      className="group relative rounded-[24px] border border-white/[0.08] bg-[#03060c] p-6 lg:p-8 overflow-hidden flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-1 shadow-[0_0_0_rgba(0,0,0,0)] hover:shadow-2xl"
+    >
+      {/* Cursor Hover Spotlight */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-[24px] opacity-0 transition duration-300 group-hover:opacity-100"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              400px circle at ${mouseX}px ${mouseY}px,
+              ${category.themeColor}15,
+              transparent 80%
+            )
+          `,
+        }}
+      />
+      
+      {/* Icon Circle */}
+      <div className="relative mb-6">
+        <div className="absolute inset-0 blur-xl opacity-30 rounded-full" style={{ backgroundColor: category.themeColor }} />
+        <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center relative z-10 bg-[#0a0a0a]">
+          <Icon className="w-7 h-7" style={{ color: category.themeColor, filter: `drop-shadow(0 0 8px ${category.themeColor})` }} />
+        </div>
+      </div>
+
+      <h3 className="text-[13px] font-bold tracking-widest mb-3 z-10" style={{ color: category.themeColor }}>
+        {category.title}
+      </h3>
+      
+      <p className="text-[13px] text-slate-400 leading-relaxed mb-8 max-w-[240px] z-10">
+        {category.subtitle}
+      </p>
+
+      {/* Skill Chips */}
+      <div className="flex flex-wrap justify-center gap-3 z-10 mt-auto">
+        {category.skills.map((skill, idx) => {
+          const SkillIcon = skill.icon;
+          return (
+            <div 
+              key={idx} 
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.05] group-hover:border-white/10 transition-colors"
+            >
+              <SkillIcon className="w-3.5 h-3.5" style={{ color: category.themeColor }} />
+              <span className="text-[12px] font-medium text-slate-300">{skill.name}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bottom glowing line */}
+      <div 
+        className="absolute bottom-0 left-[20%] right-[20%] h-[3px] rounded-t-full opacity-30 transition-all duration-700 group-hover:opacity-100 group-hover:left-[10%] group-hover:right-[10%]" 
+        style={{ background: category.themeColor, boxShadow: `0 0 20px 2px ${category.themeColor}` }} 
+      />
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   return (
-    <section id="skills" className="w-full pt-32">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-        <div>
-          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-500 block mb-3">SKILLS</span>
-          <h2 className="text-4xl font-bold text-white tracking-tight mb-4">Skills & Technologies</h2>
-          <p className="text-slate-400 text-[15px] max-w-xl leading-relaxed">
-            A comprehensive set of technical skills and tools I use to design, build, and deploy intelligent systems.
+    <section id="skills" className="w-full pt-32 pb-32 relative">
+      <div className="container-width max-w-[1400px]">
+        
+        {/* Header section matching screenshot exactly */}
+        <div className="flex flex-col items-center text-center mb-20 relative">
+          
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-emerald-500/50" />
+            <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]">
+              WHAT I WORK WITH
+            </span>
+            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-emerald-500/50" />
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight mb-6" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+            Skills & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Technologies</span>
+          </h2>
+          
+          <p className="text-slate-400 text-[15px] sm:text-[17px] max-w-2xl leading-relaxed">
+            A powerful toolkit of technologies, frameworks, and platforms that help me build intelligent, scalable and impactful solutions.
           </p>
         </div>
-        <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-slate-300 border border-white/10 hover:border-white/20 hover:bg-white/[0.02] transition-colors whitespace-nowrap">
-          <Download className="w-4 h-4" />
-          Download Tech Stack
-        </button>
-      </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-8 mb-16 border-b border-white/[0.05] pb-16">
-        {skillCategories.map((colData, colIdx) => (
-          <div key={colIdx} className="flex flex-col gap-12">
-            {colData.categories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <motion.div
-                  key={cat.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.4, delay: (colIdx * 0.1) + (i * 0.1) }}
-                >
-                  <div className="flex items-center gap-3 mb-6">
-                    <Icon className="w-6 h-6 text-blue-500 stroke-[1.5]" />
-                    <h3 className="text-[15px] font-bold text-slate-100">{cat.title}</h3>
-                  </div>
-                  <ul className="space-y-3">
-                    {cat.skills.map(skill => (
-                      <li key={skill} className="flex items-start gap-3">
-                        <span className="w-1 h-1 rounded-full bg-blue-500 mt-2 shrink-0" />
-                        <span className="text-[13px] text-slate-400 font-medium leading-relaxed">{skill}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
-
-      {/* Bottom Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
-        
-        {/* Certifications */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-        >
-          <span className="text-[13px] font-bold text-blue-500 block mb-6">Certifications</span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4">
-            {[
-              { title: 'AWS Certified Machine Learning - Specialty', issuer: 'Amazon Web Services' },
-              { title: 'TensorFlow Developer Certificate', issuer: 'Google' },
-              { title: 'Deep Learning Specialization', issuer: 'deeplearning.ai (Coursera)' },
-              { title: 'Python for Data Science', issuer: 'IBM (Coursera)' },
-            ].map((cert, i) => (
-              <div key={i} className="flex gap-3">
-                <div className="mt-0.5">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400">
-                    <circle cx="12" cy="8" r="6"/>
-                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-[12px] font-semibold text-slate-200 leading-tight mb-1">{cert.title}</h4>
-                  <p className="text-[11px] text-slate-500">{cert.issuer}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Soft Skills */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-        >
-          <span className="text-[13px] font-bold text-blue-500 block mb-6">Soft Skills</span>
-          <div className="flex flex-wrap gap-2.5">
-            {['Analytical Thinking', 'Communication', 'Team Collaboration', 'Leadership', 'Project Management', 'Adaptability'].map(skill => (
-              <span key={skill} className="px-3 py-1.5 text-[11px] font-medium text-slate-400 bg-white/[0.02] border border-white/[0.06] rounded-full">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Interests */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-        >
-          <span className="text-[13px] font-bold text-blue-500 block mb-6">Interests</span>
-          <ul className="space-y-4">
-            {[
-              { text: 'AI Research', icon: Search },
-              { text: 'Open Source', icon: Code2 },
-              { text: 'Problem Solving', icon: Puzzle },
-              { text: 'Photography', icon: Camera },
-            ].map((interest, i) => {
-              const Icon = interest.icon;
-              return (
-                <li key={i} className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 text-blue-500" />
-                  <span className="text-[13px] font-medium text-slate-300">{interest.text}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </motion.div>
+        {/* 4-column Grid matching the screenshot */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+          {skillCategories.map((category, index) => (
+            <SkillCard key={category.title} category={category} index={index} />
+          ))}
+        </div>
 
       </div>
     </section>

@@ -56,8 +56,8 @@ export function ProjectForm({ initialData, isEdit = false }: ProjectFormProps) {
     },
   });
 
-  const [images, setImages] = useState<string[]>(initialData?.images || []);
-  const [thumbnail, setThumbnail] = useState<string>(initialData?.thumbnail || '');
+  const [images, setImages] = useState<string[]>(initialData?.media || []);
+  const [thumbnail, setThumbnail] = useState<string>(initialData?.media?.[0] || '');
   
   const titleValue = form.watch('title');
   const slug = titleValue.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
