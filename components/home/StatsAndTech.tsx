@@ -24,8 +24,8 @@ export default function StatsAndTech() {
       {/* Tech Stack Marquee */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
         className="max-w-6xl mx-auto bg-[var(--color-bg-elevated)] border border-white/5 rounded-2xl flex items-center p-2 pl-6 overflow-hidden relative"
       >
         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 shrink-0 mr-8">

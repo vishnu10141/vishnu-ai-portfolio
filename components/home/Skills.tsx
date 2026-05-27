@@ -129,9 +129,8 @@ function SkillCard({ category, index }: { category: typeof skillCategories[0], i
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
       onMouseMove={handleMouseMove}
       className="group relative rounded-[24px] border border-white/[0.08] bg-[#03060c] p-6 lg:p-8 overflow-hidden flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-1 shadow-[0_0_0_rgba(0,0,0,0)] hover:shadow-2xl"
     >

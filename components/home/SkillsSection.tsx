@@ -51,9 +51,8 @@ export default function SkillsSection() {
             <motion.div
               key={group.title}
               initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.4, delay: groupIdx * 0.05 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
               className="flex flex-col gap-5"
             >
               {/* Category label - Blue uppercase */}

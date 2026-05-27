@@ -11,8 +11,7 @@ export default function ContactSection() {
         {/* Left: Headline & CTA */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
           className="space-y-6 max-w-sm"
         >
@@ -37,9 +36,8 @@ export default function ContactSection() {
         {/* Right: Info List */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
           className="space-y-8 lg:pt-14"
         >
           <div className="flex items-center gap-4 text-slate-300">

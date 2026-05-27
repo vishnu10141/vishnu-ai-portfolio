@@ -20,17 +20,15 @@ export default function AboutSection() {
         <div className="text-center mb-14 space-y-4">
           <motion.span
             initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             className="inline-block text-[11px] font-semibold tracking-[0.2em] uppercase text-cyan-400"
           >
             WHAT I DO
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
             className="text-3xl sm:text-4xl font-bold tracking-tight"
             style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >
@@ -47,9 +45,8 @@ export default function AboutSection() {
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
                 className="group flex items-start gap-3 p-4 rounded-2xl bg-[#081120]/70 border border-white/[0.04] hover:border-white/[0.08] transition-all duration-300"
               >
                 <div className={`w-9 h-9 shrink-0 rounded-xl border flex items-center justify-center ${item.color} transition-transform duration-300 group-hover:scale-105`}>

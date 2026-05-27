@@ -9,7 +9,6 @@ import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
 import * as THREE from 'three';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
 // 4 categories based on the first image reference
 const focusAreasLeft = [
@@ -76,7 +75,7 @@ function InteractiveCard({ area, align, themeHex }: { area: any, align: 'left' |
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{ scale: 1.03, zIndex: 30, y: -8 }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      className={`relative group rounded-[24px] border backdrop-blur-2xl p-7 lg:p-9 overflow-hidden flex flex-col transition-all duration-500 bg-black/40`}
+      className={`relative group rounded-[24px] border backdrop-blur-md p-7 lg:p-9 overflow-hidden flex flex-col transition-all duration-500 bg-black/40`}
       style={{ 
         borderColor: `${themeHex}33`, 
         boxShadow: isHovered 
@@ -306,9 +305,8 @@ export default function EngineeringFocus() {
               <motion.div 
                 key={idx}
                 initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, delay: idx * 0.15, ease: 'easeOut' }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4 }}
               >
                 <InteractiveCard area={area} align="left" themeHex={themeHex} />
               </motion.div>
@@ -323,9 +321,6 @@ export default function EngineeringFocus() {
               
               <HolographicCube themeColor={themeColor3D} />
               <FloatingParticles count={30} themeColor={themeColor3D} />
-              <EffectComposer>
-                <Bloom luminanceThreshold={0.5} mipmapBlur intensity={0.5} radius={0.4} />
-              </EffectComposer>
             </Canvas>
           </div>
 
@@ -335,9 +330,8 @@ export default function EngineeringFocus() {
               <motion.div 
                 key={idx}
                 initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, delay: idx * 0.15, ease: 'easeOut' }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4 }}
               >
                 <InteractiveCard area={area} align="right" themeHex={themeHex} />
               </motion.div>

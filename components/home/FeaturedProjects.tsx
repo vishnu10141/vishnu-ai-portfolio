@@ -9,10 +9,9 @@ import { GithubIcon } from '@/components/ui/SocialIcons';
 import { subscribeToProjects } from '@/lib/firebase/firestore';
 import { Project } from '@/lib/types';
 
-// Lazy load the heavy 3D and SVG visual components (disabling SSR)
-const RadarVisual = dynamic(() => import('./visuals/RadarVisual'), { ssr: false });
-const LLMVisual = dynamic(() => import('./visuals/LLMVisual'), { ssr: false });
-const BrainVisual = dynamic(() => import('./visuals/BrainVisual'), { ssr: false });
+import RadarVisual from './visuals/RadarVisual';
+import LLMVisual from './visuals/LLMVisual';
+import BrainVisual from './visuals/BrainVisual';
 
 const visualMap: Record<string, any> = {
   'radar': RadarVisual,
@@ -46,8 +45,7 @@ export default function FeaturedProjects() {
         <div className="mb-24 md:mb-32 flex flex-col items-center text-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3 mb-4"
           >
             <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
@@ -55,9 +53,8 @@ export default function FeaturedProjects() {
           </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
             className="text-4xl md:text-6xl font-bold text-white tracking-tight"
           >
             Engineered for <span className="gradient-text-blue">Production.</span>
@@ -69,30 +66,34 @@ export default function FeaturedProjects() {
           {projects.map((project, idx) => {
             const VisualComponent = visualMap[project.visualType] || RadarVisual;
             const isLeft = idx % 2 === 0;
+            const isBrain = project.visualType === 'brain' || project.visualType === 'medical';
             
             return (
               <motion.div 
                 key={project.id}
                 initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
                 className="group relative flex flex-col lg:flex-row gap-12 lg:gap-24 items-center justify-between"
               >
                 {/* Visual Side */}
-                <div className={`w-full lg:w-[50%] h-[400px] lg:h-[550px] relative rounded-[32px] overflow-hidden bg-[var(--color-bg-elevated)] border border-blue-500/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] ${isLeft ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div className={`w-full ${isBrain ? 'lg:w-[62%] bg-transparent' : 'lg:w-[50%] bg-[var(--color-bg-elevated)] border border-blue-500/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]'} h-[400px] lg:h-[550px] relative rounded-[32px] overflow-hidden ${isLeft ? 'lg:order-1' : 'lg:order-2'}`}>
                   {/* Glass reflections & hovering elevation effect */}
-                  <div className="absolute inset-0 z-20 pointer-events-none ring-1 ring-inset ring-white/10 rounded-[32px] group-hover:ring-blue-500/30 transition-colors duration-700" />
-                  <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  {!isBrain && (
+                    <>
+                      <div className="absolute inset-0 z-20 pointer-events-none ring-1 ring-inset ring-white/10 rounded-[32px] group-hover:ring-blue-500/30 transition-colors duration-700" />
+                      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    </>
+                  )}
                   
                   {/* Lazy Loaded Visual */}
-                  <div className="absolute inset-0 group-hover:scale-[1.02] transition-transform duration-1000 ease-out">
+                  <div className={`absolute inset-0 ${isBrain ? '' : 'group-hover:scale-[1.02] transition-transform duration-1000 ease-out'}`}>
                     <VisualComponent />
                   </div>
                 </div>
 
                 {/* Text Side */}
-                <div className={`w-full lg:w-[45%] flex flex-col justify-center ${isLeft ? 'lg:order-2 text-left' : 'lg:order-1 lg:text-right'}`}>
+                <div className={`w-full ${isBrain ? 'lg:w-[35%]' : 'lg:w-[45%]'} flex flex-col justify-center ${isLeft ? 'lg:order-2 text-left' : 'lg:order-1 lg:text-right'}`}>
                   <div className={`mb-4 flex items-center gap-4 ${isLeft ? '' : 'lg:flex-row-reverse'}`}>
                     <span className="text-blue-500 font-mono text-sm font-bold">{(idx + 1).toString().padStart(2, '0')}</span>
                     <span className="h-px w-16 bg-blue-500/30" />

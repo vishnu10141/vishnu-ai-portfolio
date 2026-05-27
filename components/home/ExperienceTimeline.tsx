@@ -32,35 +32,35 @@ export default function ExperienceTimeline() {
     <section id="experience" className="w-full pt-20 pb-0 relative z-20 bg-transparent">
       <div className="container-width max-w-[1400px]">
         
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row justify-start items-start gap-6 w-full">
           
           {/* Left Column (Sticky Sidebar) */}
           <div className="w-full lg:w-[360px] shrink-0 flex flex-col">
-            <div className="sticky top-32">
+            <div className="sticky top-32 bg-[var(--color-bg-elevated)]/30 backdrop-blur-md border border-blue-500/10 rounded-[24px] p-8">
               
               {/* Header */}
-              <div className="mb-10">
-                <div className="flex items-center gap-2 mb-4">
+              <div className="mb-14">
+                <div className="flex items-center gap-2 mb-3">
                   <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-500">
                     MY JOURNEY
                   </span>
                   <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
                 </div>
-                <h2 className="text-[40px] lg:text-[44px] leading-[1.1] font-bold tracking-tight mb-4 relative">
+                <h2 className="text-[32px] xl:text-[36px] leading-[1.1] font-bold tracking-tight mb-4 relative">
                   <span className="text-white block">My</span>
                   <span className="text-white block">Professional</span>
                   <span className="text-blue-500 block">Journey</span>
                   
                   {/* Decorative faint glow mimicking the cube in the image */}
-                  <div className="absolute top-0 right-10 w-24 h-24 bg-blue-500/20 blur-[50px] rounded-full pointer-events-none" />
+                  <div className="absolute top-0 right-4 w-20 h-20 bg-blue-500/20 blur-[50px] rounded-full pointer-events-none" />
                 </h2>
-                <p className="text-slate-400 text-[14px] leading-relaxed max-w-[300px]">
+                <p className="text-slate-400 text-[13px] leading-relaxed">
                   A timeline of my academic background, research internships, and the skills I've developed along the way.
                 </p>
               </div>
 
               {/* Timeline Navigation */}
-              <div className="relative pl-7 space-y-4 mb-10 hidden md:block">
+              <div className="relative pl-7 space-y-6 mb-16 hidden md:block">
                 {/* Vertical Line */}
                 <div className="absolute left-[8px] top-6 bottom-6 w-[2px] bg-blue-500/20" />
 
@@ -73,19 +73,19 @@ export default function ExperienceTimeline() {
                     <div key={exp.id} className="relative group cursor-pointer">
                       
                       {/* Node Dot */}
-                      <div className={`absolute -left-[27px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] rounded-full flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-blue-500/20' : 'bg-transparent'} z-10`}>
-                        <div className={`w-2 h-2 rounded-full ${isActive ? 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'bg-[var(--color-bg-base)] border border-blue-500/30 group-hover:border-blue-500/60'}`} />
+                      <div className={`absolute -left-[27px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] rounded-full flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-blue-500/20' : 'bg-[#060b14] border border-blue-500/30'} z-10`}>
+                        {isActive && <div className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />}
                       </div>
                       
                       {/* Nav Card */}
-                      <div className={`p-4 rounded-[20px] border transition-colors duration-300 flex items-center gap-4 ${
+                      <div className={`p-5 rounded-[20px] border transition-colors duration-300 flex items-center gap-4 ${
                         isActive 
-                          ? 'border-blue-500/50 bg-gradient-to-r from-blue-500/20 to-transparent' 
+                          ? 'border-blue-500/30 bg-blue-500/10' 
                           : 'border-transparent hover:bg-white/[0.02]'
                       }`}>
                         
                         {/* Icon Box */}
-                        <div className={`w-12 h-12 shrink-0 rounded-xl flex items-center justify-center ${
+                        <div className={`w-12 h-12 shrink-0 rounded-[14px] flex items-center justify-center ${
                           isActive 
                             ? 'bg-blue-500/20 text-blue-400 border border-blue-500/50' 
                             : 'border border-white/5 bg-[var(--color-bg-elevated)]/30 text-slate-500 group-hover:border-white/10 group-hover:text-slate-400'
@@ -113,21 +113,25 @@ export default function ExperienceTimeline() {
               </div>
 
               {/* Key Strengths */}
-              <div className="mt-2">
-                <h4 className="text-[11px] font-bold text-white mb-5 uppercase tracking-widest flex items-center gap-2">
+              <div className="mt-16">
+                <h4 className="text-[11px] font-bold text-white mb-6 uppercase tracking-widest flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
                   KEY STRENGTHS
                 </h4>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-4">
                   {strengths.map(strength => {
                     const SIcon = strength.icon;
                     return (
-                      <div key={strength.name} className="flex items-center justify-between px-4 py-3 bg-[var(--color-bg-elevated)]/30 border border-blue-500/20 rounded-[14px] text-white text-[12px] font-bold hover:bg-blue-500/10 hover:border-blue-500/40 transition-colors cursor-default group">
-                        <div className="flex items-center gap-3">
+                      <div key={strength.name} className="flex items-center justify-between px-5 py-5 bg-[#050a15] border border-blue-500/10 rounded-[14px] text-white text-[13px] font-bold hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors cursor-default group">
+                        <div className="flex items-center gap-4">
                           <SIcon className="w-4 h-4 text-blue-500" />
-                          {strength.name}
+                          <span className="tracking-wide">{strength.name}</span>
                         </div>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-blue-500 opacity-50 group-hover:opacity-100 transition-opacity" />
+                        <span className="text-blue-500 opacity-60 group-hover:opacity-100 transition-opacity">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="m9 18 6-6-6-6"/>
+                          </svg>
+                        </span>
                       </div>
                     );
                   })}
@@ -138,7 +142,7 @@ export default function ExperienceTimeline() {
           </div>
 
           {/* Right Column (Cards) */}
-          <div className="flex-1 flex flex-col gap-6 lg:max-w-[760px]">
+          <div className="flex-1 flex flex-col gap-6 w-full">
             {experiences.map((exp, idx) => {
               const fallbackImage = idx === 0 ? '/images/radar_ui.png' : (idx === 1 ? '/images/nlp_dashboard.png' : '/images/data_cube.png');
               const isActive = idx === 0;
@@ -147,13 +151,17 @@ export default function ExperienceTimeline() {
               <motion.div 
                 key={exp.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`bg-[var(--color-bg-elevated)]/40 backdrop-blur-md border ${isActive ? 'border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.1)]' : 'border-white/[0.04]'} rounded-[24px] p-5 flex flex-col md:flex-row gap-6 relative hover:border-blue-500/30 hover:bg-[var(--color-bg-elevated)]/60 transition-colors duration-300`}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className={`bg-[var(--color-bg-elevated)]/30 backdrop-blur-md border ${isActive ? 'border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.05)]' : 'border-blue-500/10'} rounded-[24px] p-6 flex flex-col md:flex-row gap-8 relative hover:border-blue-500/30 hover:bg-[var(--color-bg-elevated)]/50 transition-colors duration-300`}
               >
+                {/* Options Icon - Absolutely positioned top right */}
+                <button className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#040812] border border-blue-500/20 flex items-center justify-center text-blue-500 opacity-80 hover:opacity-100 transition-opacity z-10">
+                  <MoreVertical className="w-4 h-4" />
+                </button>
+
                 {/* Left Image Column */}
-                <div className="w-full md:w-[280px] shrink-0 h-[200px] relative rounded-[16px] overflow-hidden bg-black/50 border border-white/[0.05]">
+                <div className="w-full md:w-[460px] xl:w-[500px] shrink-0 h-[300px] relative rounded-[16px] overflow-hidden bg-black/50 border border-white/[0.05]">
                   <Image 
                     src={exp.logo || fallbackImage}
                     alt={exp.company}
@@ -165,38 +173,33 @@ export default function ExperienceTimeline() {
                 </div>
 
                 {/* Right Content Column */}
-                <div className="flex-1 flex flex-col justify-start py-1">
+                <div className="flex-1 flex flex-col justify-start py-2 pr-10">
                   
-                  {/* Top Row: Date Pill & Options Icon */}
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="inline-block px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-[11px] font-bold tracking-wide">
-                      {exp.duration}
-                    </span>
-                    <button className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 opacity-80 hover:opacity-100 transition-opacity">
-                      <MoreVertical className="w-4 h-4" />
-                    </button>
-                  </div>
+                  {/* Date */}
+                  <span className="text-blue-400 text-[12px] font-bold tracking-wide mb-1.5 block">
+                    {exp.duration}
+                  </span>
 
                   {/* Header */}
-                  <h3 className="text-[22px] font-bold text-white leading-tight mb-1 pr-4">{exp.role}</h3>
-                  <span className="text-blue-500 text-[15px] font-medium block mb-4">{exp.company}</span>
+                  <h3 className="text-[22px] font-bold text-white leading-tight mb-1">{exp.role}</h3>
+                  <span className="text-blue-500 text-[14px] font-bold block mb-4">{exp.company}</span>
                   
                   {/* Contributions */}
-                  <h4 className="text-white text-[11px] font-bold tracking-[0.1em] mb-2 uppercase">Key Contributions</h4>
-                  <ul className="space-y-1.5 mb-5">
+                  <h4 className="text-white text-[11px] font-bold tracking-[0.1em] mb-3 uppercase">Key Contributions</h4>
+                  <ul className="space-y-2 mb-6">
                     {exp.contributions && exp.contributions.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2.5">
-                        <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0 mt-2 shadow-[0_0_6px_rgba(59,130,246,0.8)]" />
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 mt-1.5 shadow-[0_0_6px_rgba(59,130,246,0.8)]" />
                         <span className="text-slate-300 text-[13px] leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
 
                   {/* Tech Stack */}
-                  <h4 className="text-white text-[11px] font-bold tracking-[0.1em] mb-2 uppercase">Tech Stack</h4>
+                  <h4 className="text-white text-[11px] font-bold tracking-[0.1em] mb-2.5 uppercase">Tech Stack</h4>
                   <div className="flex flex-wrap gap-2">
                     {exp.stack && exp.stack.map(t => (
-                      <span key={t} className="px-3 py-1 rounded-[6px] border border-white/10 bg-white/[0.03] text-slate-300 text-[11px] font-semibold">
+                      <span key={t} className="px-3 py-1.5 rounded-[6px] border border-white/5 bg-white/[0.02] text-slate-300 text-[11px] font-semibold">
                         {t}
                       </span>
                     ))}
